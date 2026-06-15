@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Post - SwapFuser</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-container": "#fffbff",
+                        "on-tertiary-container": "#fffbff",
+                        "secondary": "#8127cf",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-fixed": "#311400",
+                        "primary": "#0058be",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "on-primary-container": "#fefcff",
+                        "ink-black": "#0F172A",
+                        "on-secondary-fixed": "#2c0051",
+                        "tertiary": "#924700",
+                        "surface-container-low": "#f2f4f6",
+                        "surface": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "outline-variant": "#c2c6d6",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "primary-fixed-dim": "#adc6ff",
+                        "inverse-primary": "#adc6ff",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-surface-variant": "#424754",
+                        "surface-tint": "#005ac2",
+                        "tertiary-container": "#b75b00",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2d3133",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-primary": "#ffffff",
+                        "outline": "#727785",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed": "#ffdcc6",
+                        "primary-container": "#2170e4",
+                        "surface-container": "#eceef0",
+                        "secondary-fixed": "#f0dbff",
+                        "secondary-container": "#9c48ea",
+                        "background": "#f7f9fb",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-dim": "#d8dadc",
+                        "success-green": "#00A63F",
+                        "sky-blue": "#BFE5F8",
+                        "on-primary-fixed": "#001a42",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "24px",
+                        "base": "4px",
+                        "gutter": "16px",
+                        "feed-width": "600px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md-mobile": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "username-sm": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Geist"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "username-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f7f9fb; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .toggle-active {
+            background-color: #0058be; /* primary */
+            color: #ffffff; /* on-primary */
+        }
+        .toggle-inactive {
+            background-color: transparent;
+            color: #424754; /* on-surface-variant */
+        }
+    </style>
+</head>
+<body class="text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/90 dark:bg-on-surface/90 backdrop-blur-xl docked full-width top-0 z-50 sticky border-b border-outline-variant/30 flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-gutter">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">SwapFuser</span>
+</div>
+<div class="hidden md:flex gap-gutter items-center h-full">
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200 h-full flex items-center px-2" href="#">Feed</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200 h-full flex items-center px-2" href="#">Map</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200 h-full flex items-center px-2" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-base">
+<button class="font-username-sm text-username-sm font-semibold text-primary px-4 py-2 hover:bg-primary/10 rounded-full transition-colors">Login</button>
+<button class="bg-primary text-on-primary font-username-sm text-username-sm font-semibold px-4 py-2 rounded-full hover:bg-primary-fixed-variant transition-colors shadow-sm">Sign Up</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop">
+<div class="w-full max-w-[600px] glass-panel rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Header -->
+<div class="p-gutter border-b border-outline-variant/30 flex justify-between items-center bg-white/50">
+<h1 class="font-headline-md text-headline-md text-on-surface">Create Post</h1>
+<button class="text-on-surface-variant hover:text-error transition-colors flex items-center justify-center p-1 rounded-full hover:bg-error-container/20">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="p-margin-desktop space-y-6">
+<!-- Toggle: Sell / Swap -->
+<div class="flex bg-surface-container-low rounded-lg p-1 border border-outline-variant/50 relative overflow-hidden">
+<div class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-primary rounded-md transition-transform duration-300 ease-in-out shadow-sm" id="toggle-bg"></div>
+<button class="flex-1 relative z-10 py-2 font-username-sm text-username-sm text-on-primary text-center transition-colors duration-300" id="btn-sell" onclick="setPostType('sell')">
+                        Sell
+                    </button>
+<button class="flex-1 relative z-10 py-2 font-username-sm text-username-sm text-on-surface-variant text-center transition-colors duration-300" id="btn-swap" onclick="setPostType('swap')">
+                        Swap
+                    </button>
+</div>
+<!-- Image Uploader -->
+<div class="border-2 border-dashed border-outline-variant/60 rounded-xl p-8 flex flex-col items-center justify-center text-center bg-surface-bright/50 hover:bg-primary-container/5 hover:border-primary/50 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="add_photo_alternate">add_photo_alternate</span>
+</div>
+<p class="font-username-sm text-username-sm text-on-surface mb-1">Drag and drop photos</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">or click to browse from your device</p>
+</div>
+<!-- Form Fields -->
+<div class="space-y-4">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Item Name</label>
+<input class="w-full bg-surface-bright border border-outline-variant/60 rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="What are you offering?" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Description</label>
+<textarea class="w-full bg-surface-bright border border-outline-variant/60 rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none" placeholder="Describe the condition, features, etc." rows="3"></textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Location</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="location_on">location_on</span>
+<input class="w-full bg-surface-bright border border-outline-variant/60 rounded-lg pl-10 pr-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="City or ZIP" type="text"/>
+</div>
+</div>
+<!-- Dynamic Field based on Toggle -->
+<div id="dynamic-field-container">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider text-primary" id="dynamic-label">Price</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-sm font-bold" data-icon="attach_money" id="dynamic-icon">attach_money</span>
+<input class="w-full bg-primary-container/5 border border-primary/30 rounded-lg pl-10 pr-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-semibold" id="dynamic-input" placeholder="0.00" type="text"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-gutter border-t border-outline-variant/30 bg-surface-container-lowest/50 flex justify-end gap-3">
+<button class="px-6 py-2.5 rounded-full font-username-sm text-username-sm text-on-surface-variant hover:bg-surface-variant/50 transition-colors border border-transparent">
+                    Cancel
+                </button>
+<button class="px-8 py-2.5 rounded-full font-username-sm text-username-sm bg-primary text-on-primary hover:bg-surface-tint shadow-sm hover:shadow transition-all transform hover:scale-[1.02] active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span> Post Item
+                </button>
+</div>
+</div>
+</main>
+<script>
+        function setPostType(type) {
+            const btnSell = document.getElementById('btn-sell');
+            const btnSwap = document.getElementById('btn-swap');
+            const toggleBg = document.getElementById('toggle-bg');
+            
+            const dynamicLabel = document.getElementById('dynamic-label');
+            const dynamicInput = document.getElementById('dynamic-input');
+            const dynamicIcon = document.getElementById('dynamic-icon');
+
+            if (type === 'sell') {
+                toggleBg.style.transform = 'translateX(0)';
+                btnSell.classList.add('text-on-primary');
+                btnSell.classList.remove('text-on-surface-variant');
+                btnSwap.classList.add('text-on-surface-variant');
+                btnSwap.classList.remove('text-on-primary');
+                
+                dynamicLabel.innerText = 'Price';
+                dynamicLabel.classList.remove('text-secondary');
+                dynamicLabel.classList.add('text-primary');
+                
+                dynamicInput.placeholder = '0.00';
+                dynamicInput.classList.remove('border-secondary/30', 'bg-secondary-container/5', 'focus:border-secondary', 'focus:ring-secondary');
+                dynamicInput.classList.add('border-primary/30', 'bg-primary-container/5', 'focus:border-primary', 'focus:ring-primary');
+                
+                dynamicIcon.innerText = 'attach_money';
+                dynamicIcon.setAttribute('data-icon', 'attach_money');
+                dynamicIcon.classList.remove('text-secondary');
+                dynamicIcon.classList.add('text-primary');
+
+            } else {
+                toggleBg.style.transform = 'translateX(100%)';
+                btnSwap.classList.add('text-on-primary');
+                btnSwap.classList.remove('text-on-surface-variant');
+                btnSell.classList.add('text-on-surface-variant');
+                btnSell.classList.remove('text-on-primary');
+                
+                dynamicLabel.innerText = 'Looking For...';
+                dynamicLabel.classList.remove('text-primary');
+                dynamicLabel.classList.add('text-secondary');
+
+                dynamicInput.placeholder = 'e.g. Vintage Camera';
+                dynamicInput.classList.remove('border-primary/30', 'bg-primary-container/5', 'focus:border-primary', 'focus:ring-primary');
+                dynamicInput.classList.add('border-secondary/30', 'bg-secondary-container/5', 'focus:border-secondary', 'focus:ring-secondary');
+
+                dynamicIcon.innerText = 'sync_alt';
+                dynamicIcon.setAttribute('data-icon', 'sync_alt');
+                dynamicIcon.classList.remove('text-primary');
+                dynamicIcon.classList.add('text-secondary');
+            }
+        }
+    </script>
+<script>
+(function(){
+  var P = {
+    feed:    '../swapfuser_social_feed/code.html',
+    map:     '../swapfuser_interactive_map/code.html',
+    profile: '../swapfuser_user_profile/code.html'
+  };
+  document.querySelectorAll('a[href="#"]').forEach(function(a){
+    var t = a.textContent.trim();
+    if(t==='Feed')    a.href = P.feed;
+    else if(t==='Map')     a.href = P.map;
+    else if(t==='Profile') a.href = P.profile;
+  });
+  document.querySelectorAll('button').forEach(function(btn){
+    var t = btn.textContent.trim();
+    if(t==='Cancel') btn.addEventListener('click',function(){ location.href=P.feed; });
+    if(btn.querySelector('span[data-icon="close"]'))
+      btn.addEventListener('click',function(){ location.href=P.feed; });
+  });
+})();
+</script>
+</body></html>

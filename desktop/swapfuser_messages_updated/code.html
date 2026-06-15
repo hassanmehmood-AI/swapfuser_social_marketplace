@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SwapFuser - Messages</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#b75b00",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#fefcff",
+                        "on-surface": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "success-green": "#00A63F",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "primary-fixed-dim": "#adc6ff",
+                        "sky-blue": "#BFE5F8",
+                        "surface-variant": "#e0e3e5",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#f0dbff",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed": "#d8e2ff",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "tertiary": "#924700",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed": "#2c0051",
+                        "primary": "#0058be",
+                        "on-primary-fixed": "#001a42",
+                        "background": "#f7f9fb",
+                        "on-tertiary-fixed": "#311400",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary-container": "#fffbff",
+                        "inverse-primary": "#adc6ff",
+                        "secondary-container": "#9c48ea",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed": "#ffdcc6",
+                        "surface-container-high": "#e6e8ea",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-container": "#2170e4",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "secondary": "#8127cf",
+                        "outline": "#727785",
+                        "on-surface-variant": "#424754",
+                        "ink-black": "#0F172A",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-tint": "#005ac2",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c2c6d6"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "24px",
+                        "feed-width": "600px",
+                        "base": "4px",
+                        "gutter": "16px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Geist", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "display-lg": ["Geist", "sans-serif"],
+                        "username-sm": ["Geist", "sans-serif"],
+                        "headline-md-mobile": ["Geist", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "label-caps": ["Geist", "sans-serif"]
+                    },
+                    fontSize: {
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "username-sm": ["16px", { lineHeight: "24px", fontWeight: "600" }],
+                        "headline-md-mobile": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom Scrollbar for Chat */
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background-color: #e0e3e5;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen overflow-hidden flex font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar (Mobile Only) -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/30 md:hidden flex justify-between items-center px-margin-mobile h-16">
+<div class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">SwapFuser</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:bg-sky-blue/20 p-2 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-primary p-2 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined material-symbols-fill">chat</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="fixed left-0 top-0 h-full w-64 hidden lg:flex flex-col bg-surface border-r border-outline-variant/30 py-8 px-4 z-40">
+<div class="mb-8 px-4">
+<h1 class="font-headline-md text-headline-md text-primary font-bold">SwapFuser</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Social Exchange</p>
+</div>
+<button class="w-full bg-primary text-on-primary rounded-full py-3 mb-8 font-username-sm text-username-sm hover:opacity-90 transition-opacity active:scale-95 flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined">add</span> New Swap
+        </button>
+<div class="flex-1 space-y-2">
+<!-- Inactive Tab -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined">dynamic_feed</span>
+<span class="font-username-sm text-username-sm">Feed</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-username-sm text-username-sm">Map</span>
+</a>
+<!-- Active Tab (Chat is often grouped with Swap activities or standalone, but context implies we are managing swaps here) -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary font-bold bg-primary/10 border-r-4 border-primary transition-all" href="#">
+<span class="material-symbols-outlined material-symbols-fill">swap_horiz</span>
+<span class="font-username-sm text-username-sm">Swap</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-username-sm text-username-sm">Profile</span>
+</a>
+</div><div class="mt-6 pt-6 border-t border-outline-variant/30 flex-1 overflow-y-auto chat-scroll">
+<div class="px-4 mb-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">MESSAGES</h3>
+</div>
+<div class="space-y-1">
+<!-- Elena R. -->
+<div class="px-4 py-3 rounded-lg bg-primary/10 border-r-4 border-primary cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="relative shrink-0">
+<img alt="Elena" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyrb68Bs6_4tJl-Os40nNS6MFb2S9hibANxgrT29HCvF9nMjo-BHGIMs6l6NICAjnQ78XVTY5V2xwcFkBZCyHBcM2KiIRlTrUTWRzOFQwucLFMXGW3K-xM5U7BvWWjZ6m-7z1865g-Qa1MGm9cRjjdcViJmKKU5cxqZvgp3v6alBv6Tif-G9xahbrr_Z805uJqLQXlfLaLrXKd9eqywZuTYzG1MPD4CW68gcBLiGwSCLo6y3ss5cyQ9Cniv45ySFu1LAg9o70jJre0"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-success-green border-2 border-surface rounded-full"></span>
+</div>
+<div class="min-w-0">
+<div class="font-username-sm text-username-sm text-on-surface truncate">Elena R.</div>
+<p class="font-body-sm text-body-sm text-on-surface truncate text-[12px]">I can bring the vintage...</p>
+</div>
+</div>
+</div>
+<!-- Marcus K. -->
+<div class="px-4 py-3 rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<img alt="Marcus" class="w-10 h-10 rounded-full object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFdkVVdx2zcoDR-OQgpFE7wgCCVJ9OWizkNufBdhyujs_FWtAaYR8MfVpN9CIIkX0oa7TfO4WPxkg8HXv9me-nSDIRdn0oYYbj3i7WJtQ9fSKtfBCW2hSqVsY6tdOlyGSlbwmttUf4NAa6MbH1s2vZW51Jd9yotq3CGH0zzbM2e028gDWwEcSywlNrt-5cbLUMLvPPz80lbb7kqmByxAAbO4WOAemxF7wb5JnpEW0K0HfPHXy-xSkmV3UNgpBP0eI78fOjsuAe62W4"/>
+<div class="min-w-0">
+<div class="font-username-sm text-username-sm text-on-surface-variant truncate">Marcus K.</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate text-[12px]">Is the Keychron Q1 still...</p>
+</div>
+</div>
+</div>
+<!-- Sarah T. -->
+<div class="px-4 py-3 rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold shrink-0 text-[14px]">S</div>
+<div class="min-w-0">
+<div class="font-username-sm text-username-sm text-on-surface-variant truncate">Sarah T.</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate text-[12px]">Thanks for the smooth...</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-sm text-body-sm">Settings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body-sm text-body-sm">Help</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex pt-16 md:pt-0 w-full max-w-container-max mx-auto h-full lg:ml-64">
+<!-- Left Pane: Inbox List -->
+<!-- Right Pane: Active Chat Window -->
+<section class="flex-1 flex flex-col h-full bg-surface-lowest relative">
+<!-- Chat Header -->
+<div class="h-20 px-6 flex items-center justify-between border-b border-outline-variant/30 bg-surface/80 backdrop-blur-xl z-10 sticky top-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 -ml-2 text-on-surface-variant">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="relative">
+<img alt="Avatar of Elena" class="w-10 h-10 rounded-full object-cover" data-alt="A close-up portrait of a young woman with a relaxed expression, soft natural lighting, against a blurred urban background. High quality, modern aesthetic, clean and crisp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGI34_4RnJk27YnCZ6sv5cnI5RT-yTQJFT6PDkdtEmh7Qty-vf-Hmw-dLn3koPfosHhkeeR37krDX0y-TdT09Kq9EzwT_ctuBoDGLqHXzX2I76EQd4v7KK8QkKIjxZzePGtHhbrS7amBHZkpTdfysykiip98b_qEys9Hv_wil8v9DpdxEC2Ts08Q3OOHYkzJrlC0Y9_BATPTDW6ffYYtiH3_d8Jn7NaJcEqUQC5vDiYR3b2kecyw43VXAme_AEN3hdOXtMMwa44IV4"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-success-green border border-surface rounded-full"></span>
+</div>
+<div>
+<h2 class="font-username-sm text-username-sm text-on-surface">Elena R.</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Online</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-full transition-colors hidden sm:block">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-full transition-colors hidden sm:block">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Context Card (The Item being swapped) -->
+<div class="p-4 mx-6 mt-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl flex items-center gap-4 shadow-sm">
+<img alt="Vintage Camera" class="w-14 h-14 rounded-lg object-cover" data-alt="A well-maintained vintage Canon AE-1 camera sitting on a clean, light wood desk. The lighting is bright and clear, emphasizing the mechanical details of the camera. Modern aesthetic photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOOz5gK8DLAhT1Qp7gyZR07haxM9kZZ8TdwC-RF7fs_Uo3Z6VmFBqpfKOzrRRvU2-_GABVR61E5XXDw_K_Ii9_1k2xpp5Mrli6EtgUnhTuG031VD2bIj-bgSjvknYEAr18Ehspa9NjPXtpYb5PNqzffRDEDto4YzoscLNmXcjixeCZwnlTGOwMX3TZojZxp_3qLHZdhnQbSBFNBCZ_C-Vc7Wbub4xFfQ6H_D4ARcuO6blvw7iXTUw44DrFu-nyrtv8-eaNuK2Npmk6"/>
+<div class="flex-1">
+<div class="font-label-caps text-label-caps text-primary mb-1">PROPOSED SWAP</div>
+<div class="font-username-sm text-username-sm text-on-surface">Canon AE-1 Vintage Camera</div>
+</div>
+<button class="text-primary font-username-sm text-username-sm px-4 py-2 hover:bg-primary-fixed rounded-lg transition-colors">
+                    View Details
+                </button>
+</div>
+<!-- Chat Messages Area -->
+<div class="flex-1 overflow-y-auto chat-scroll p-6 flex flex-col gap-6">
+<!-- Date Separator -->
+<div class="flex justify-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container px-3 py-1 rounded-full text-[12px]">Today, 10:30 AM</span>
+</div>
+<!-- Received Message -->
+<div class="flex items-end gap-3 self-start max-w-[85%] sm:max-w-[70%]">
+<img alt="Elena" class="w-8 h-8 rounded-full object-cover hidden sm:block" data-alt="A close-up portrait of a young woman with a relaxed expression, soft natural lighting, against a blurred urban background. High quality, modern aesthetic, clean and crisp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE-NePgTIieabl-xEAF10_HsJ2sRl5gyWVI8Gp8IH4i5d4lkcvOOiyifYwxN3jHsC6Q92IoB5cF48t_15JZuyYSsaXRnOtlUWwhT1nKB7_d-TFNKi1E2bJwz0jghahaTrP_2UagPpd5QY4Aw_ebWcLfUk8pkX-BXx4ili22hZjXlMH2_AfRPnUfMlzrIB9FVhxlUri0b7Ro7cLux3EG8JaVn60YbDplXpp6h5bQU55sSWyIRedxyzR8oPIRFGkEYSmbtaioByAKLfl"/>
+<div class="flex flex-col gap-1">
+<div class="bg-surface-container text-on-surface px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm font-body-md text-body-md">
+                            Hey! I saw you were looking for a vintage camera. Is your custom mechanical keyboard still up for trade?
+                        </div>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] ml-1">10:30 AM</span>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex flex-col gap-1 self-end max-w-[85%] sm:max-w-[70%] items-end">
+<div class="bg-primary text-on-primary px-4 py-3 rounded-2xl rounded-br-sm shadow-sm font-body-md text-body-md">
+                        Hi Elena! Yes, it is. It's a Keychron Q1 with Gateron Brown switches. Barely used.
+                    </div>
+<div class="bg-primary text-on-primary px-4 py-3 rounded-2xl shadow-sm font-body-md text-body-md mt-1">
+                        I'm very interested in the Canon AE-1. Does the light meter still work properly?
+                    </div>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] mr-1">10:35 AM</span>
+<span class="material-symbols-outlined text-[14px] text-primary">done_all</span>
+</div>
+</div>
+<!-- Received Message -->
+<div class="flex items-end gap-3 self-start max-w-[85%] sm:max-w-[70%]">
+<img alt="Elena" class="w-8 h-8 rounded-full object-cover hidden sm:block" data-alt="A close-up portrait of a young woman with a relaxed expression, soft natural lighting, against a blurred urban background. High quality, modern aesthetic, clean and crisp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu94UayOxU8GghJZrVI5amuvlevA1YIzBVkc8twsRb-7AiLHh6RavxiH9b3yZ8RhHgh2dCQfNqzLEQHc5YqPOiHQEhGZ5tb2W3gI_TVMcYN2qnuC8eg-jytOwX1jpMR6edctOx7CstbfgwxuU0Sa6r13muA0qefU1X7Z7UuRWiHhZtBAeYBRoVi3mE7OvYSztyRxDt0vH5GCYhgX-R5iM5XOAB6OivKETBgo8AbPYLIKI3EpAXjRUw7Im466eP4L6dQVeEUNVJo7vN"/>
+<div class="flex flex-col gap-1">
+<div class="bg-surface-container text-on-surface px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm font-body-md text-body-md">
+                            That sounds perfect. Yes, the light meter is fully functional. I just had it serviced last month.
+                        </div>
+<div class="bg-surface-container text-on-surface px-4 py-3 rounded-2xl shadow-sm font-body-md text-body-md mt-1">
+                            I can bring the vintage Canon AE-1 and meet you somewhere downtown if you want to check it out?
+                        </div>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] ml-1">10:42 AM</span>
+</div>
+</div>
+<!-- Typing Indicator (Simulated) -->
+<div class="flex items-end gap-3 self-start mt-2">
+<img alt="Elena" class="w-8 h-8 rounded-full object-cover hidden sm:block opacity-50" data-alt="A close-up portrait of a young woman with a relaxed expression, soft natural lighting, against a blurred urban background. High quality, modern aesthetic, clean and crisp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAKKqSU7BzZ3fYbgy77zw78GCNxUw4l4TUrptiNlCQ3pd5VUZFtf4qPfSWwWrixhuAsNnebtNS7sD95pgP62I50aSkLHm-g1ug7Zepa7Z9JMqlTfGW16XP-jBKv_TKiG6dL1hesP4Hk8jOlMYoVFN7YYOCKC2ggcq4wSHvWB30Dcgx1szXolndZXpeGlnHfAGxa1ateKOelLju3XW8QHIfqn_cdEekSoAmvAaRwNTwxW0_l9MXrkvYCyl2zHcyEMxpOUGLk68rJjqA"/>
+<div class="bg-surface-container px-4 py-3 rounded-2xl rounded-bl-sm flex gap-1 items-center h-[48px]">
+<div class="w-2 h-2 bg-on-surface-variant rounded-full animate-bounce" style="animation-delay: 0ms;"></div>
+<div class="w-2 h-2 bg-on-surface-variant rounded-full animate-bounce" style="animation-delay: 150ms;"></div>
+<div class="w-2 h-2 bg-on-surface-variant rounded-full animate-bounce" style="animation-delay: 300ms;"></div>
+</div>
+</div>
+<!-- Spacer for scrolling -->
+<div class="h-4"></div>
+</div>
+<!-- Input Area -->
+<div class="p-4 bg-surface/80 backdrop-blur-xl border-t border-outline-variant/30 mb-safe md:mb-0">
+<div class="flex items-center gap-2 bg-surface-lowest border border-outline-variant/50 rounded-full px-2 py-1 shadow-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full shrink-0">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full shrink-0 hidden sm:block">
+<span class="material-symbols-outlined">image</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant py-3 px-2 outline-none" placeholder="Type a message..." type="text"/>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full shrink-0">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+<button class="p-2 bg-primary text-on-primary hover:bg-primary/90 transition-colors rounded-full shrink-0 flex items-center justify-center shadow-md active:scale-95 ml-1 h-10 w-10">
+<span class="material-symbols-outlined text-[20px] ml-0.5">send</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full lg:hidden z-50 bg-surface/90 backdrop-blur-xl border-t border-outline-variant/30 shadow-lg pb-safe">
+<div class="flex justify-around items-center h-16 px-margin-mobile">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-caps text-label-caps mt-1">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined text-[32px] -mt-2">add_circle</span>
+<span class="font-label-caps text-label-caps mt-1">Swap</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined material-symbols-fill">mail</span>
+<span class="font-label-caps text-label-caps mt-1">Inbox</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</div>
+</nav>
+<script>
+(function(){
+  var P = {
+    feed:    '../swapfuser_social_feed/code.html',
+    map:     '../swapfuser_interactive_map/code.html',
+    profile: '../swapfuser_user_profile/code.html',
+    create:  '../swapfuser_create_post/code.html'
+  };
+  function navLabel(el){
+    var s = el.querySelector('.font-username-sm,.font-label-caps');
+    return s ? s.textContent.trim().toLowerCase() : el.textContent.trim().toLowerCase();
+  }
+  document.querySelectorAll('a[href="#"]').forEach(function(a){
+    var l = navLabel(a);
+    if(l==='feed'||l==='home')  a.href = P.feed;
+    else if(l==='map')           a.href = P.map;
+    else if(l==='profile')       a.href = P.profile;
+    else if(l==='swap'){
+      // bottom-nav swap = create; sidebar swap = active (has border-r-4)
+      if(a.className.indexOf('border-r-4')===-1) a.href = P.create;
+    }
+  });
+  document.querySelectorAll('button').forEach(function(btn){
+    if(btn.textContent.indexOf('New Swap')!==-1)
+      btn.addEventListener('click',function(){ location.href=P.create; });
+  });
+})();
+</script>
+</body></html>

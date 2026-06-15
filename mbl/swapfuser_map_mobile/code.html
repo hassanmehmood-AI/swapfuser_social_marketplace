@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SwapFuser - Interactive Map</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Geist & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Note: Geist is typically self-hosted or via specific CDNs, mapping to system-ui/sans-serif as fallback if not available, but we use the token names as required -->
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Hide scrollbar for horizontal scrolling elements */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-container": "#fffbff",
+                        "surface-container": "#eceef0",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-container": "#9c48ea",
+                        "tertiary-fixed": "#ffdcc6",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#2c0051",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-container": "#b75b00",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-container": "#fffbff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "outline": "#727785",
+                        "surface-tint": "#005ac2",
+                        "on-tertiary-fixed": "#311400",
+                        "on-surface-variant": "#424754",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary": "#8127cf",
+                        "on-primary-container": "#fefcff",
+                        "surface-container-lowest": "#ffffff",
+                        "success-green": "#00A63F",
+                        "primary": "#0058be",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-tertiary": "#ffffff",
+                        "sky-blue": "#BFE5F8",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "outline-variant": "#c2c6d6",
+                        "background": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "ink-black": "#0F172A",
+                        "inverse-primary": "#adc6ff",
+                        "tertiary": "#924700",
+                        "on-primary-fixed": "#001a42",
+                        "surface": "#f7f9fb",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "primary-fixed-dim": "#adc6ff",
+                        "primary-container": "#2170e4",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#f0dbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "feed-width": "600px",
+                        "margin-desktop": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "username-sm": ["Geist", "sans-serif"],
+                        "headline-md-mobile": ["Geist", "sans-serif"],
+                        "headline-md": ["Geist", "sans-serif"],
+                        "label-caps": ["Geist", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "display-lg": ["Geist", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "username-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-md-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background overflow-hidden relative h-[884px] w-full select-none">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-xl flex justify-between items-center px-gutter h-16 w-full flat no shadows">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:bg-surface-variant/50 dark:hover:bg-surface-variant/20 transition-colors active:scale-95 transition-transform duration-100 p-2 -ml-2 rounded-full">menu</button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary dark:text-primary-fixed">SwapFuser</h1>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:bg-surface-variant/50 dark:hover:bg-surface-variant/20 transition-colors active:scale-95 transition-transform duration-100 p-2 -mr-2 rounded-full">search</button>
+</nav>
+<!-- Floating Search Overlay (Mobile Map specific) -->
+<div class="absolute top-[80px] left-gutter right-gutter z-40">
+<div class="bg-surface-container-lowest/90 backdrop-blur-md rounded-full shadow-lg border border-outline-variant/30 flex items-center px-4 py-3 h-[48px] active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant mr-3 text-[20px]">search</span>
+<input autocomplete="off" class="bg-transparent border-none focus:ring-0 w-full font-body-md text-body-md text-on-surface placeholder-on-surface-variant outline-none" placeholder="Search areas, users, or items..." type="text"/>
+<button class="material-symbols-outlined text-primary ml-3 bg-primary/10 rounded-full p-1.5 text-[18px]">tune</button>
+</div>
+</div>
+<!-- Interactive Map Layer (Background) -->
+<div class="absolute inset-0 z-0 bg-surface-dim pointer-events-auto">
+<img class="w-full h-full object-cover opacity-60 grayscale-[20%]" data-alt="A clean, minimalist digital map interface of an urban city area, styled in light mode with subtle grayscale tones and soft blue accents. The map shows detailed street grids, green parks, and waterways under bright, even lighting. The aesthetic is highly functional, modern, and uncluttered, perfect for a high-velocity social exchange platform." data-location="San Francisco, CA" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCylyCy-3AEy6jW3yJYKBydqvvyOYzn8gXmry78DruJ9U1F4phKG014j05XNdJ0QIAjsFbz-ST7FCoGh7hGoi_9eDm6Qtsnula89EURLxIaK0S0rw77K2QwYsrEW-vp57OGpvBEvdG43Fe_dnMmLjV4JF6ERQMLyAtqRbyBmSBlq4CEVP4F9PjBH3gVvu4mnpDLUKanjDIH5pM2eT0mA_OnO0N4GXV1VD_XZJjniBDy_HmkrGJb7j-5V7F1ProoGe6tFE28c5jKA-HB"/>
+<!-- Animated Pulse Overlay Effect (Subtle background texture) -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(0,88,190,0.05)_0%,_transparent_60%)] animate-pulse pointer-events-none"></div>
+<!-- Map Pins -->
+<!-- Pin 1: Active Swap -->
+<div class="absolute top-[35%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 cursor-pointer">
+<div class="w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg relative border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+<div class="absolute inset-0 rounded-full border border-primary animate-ping opacity-75"></div>
+</div>
+</div>
+<!-- Pin 2: User Profile -->
+<div class="absolute top-[45%] left-[65%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 cursor-pointer">
+<div class="w-12 h-12 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-lg relative border-2 border-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a young woman with a friendly, modern expression, bathed in soft, natural daylight. The background is slightly blurred, focusing entirely on her face. The lighting is clean and high-key, matching a light-mode social profile aesthetic. She exudes a sense of approachability and community engagement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTXUl_pTMrabzvKISwg2KwOIzjspPb1nnKtgrpDYhUhkC9aGYb4Dq6V_2FwM3VlMBEy6ELMJ4lQ1VVnctWSeBW2-zrfJfuT0rGfTdAowr51S3G-TP9UsjdsLFui6vOuBjJ4j2e4N2DhqYHHum8CcHiQ5VSyc-rAc96HgsyQRxImVPnCAeUGejXwp1np47KNxVsdXLZ1QaYBZu7q2rcXYj0yR2CGEriZYqEiHqtdpS5MSQU5WVS7Al3C0V-hsXjdtI7YVGb_eaD4exi"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-success-green rounded-full border-2 border-surface-container-lowest"></div>
+</div>
+<div class="mt-1 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded-md shadow-sm border border-outline-variant/20">
+<span class="font-label-caps text-label-caps text-on-surface">Sarah M.</span>
+</div>
+</div>
+<!-- Pin 3: Item Available -->
+<div class="absolute top-[60%] left-[30%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 cursor-pointer">
+<div class="w-8 h-8 bg-surface-container-lowest text-secondary rounded-full flex items-center justify-center shadow-md relative border border-outline-variant/30">
+<span class="material-symbols-outlined text-[16px]">headphones</span>
+</div>
+</div>
+</div>
+<!-- Floating Action Buttons (FABs) - Positioned above the Bottom Sheet -->
+<div class="absolute right-gutter bottom-[340px] flex flex-col gap-3 z-40">
+<!-- Current Location -->
+<button class="w-12 h-12 bg-surface-container-lowest text-on-surface rounded-full shadow-lg border border-outline-variant/20 flex items-center justify-center hover:bg-surface-container-low transition-colors active:scale-90">
+<span class="material-symbols-outlined text-[24px]">my_location</span>
+</button>
+<!-- Zoom Controls -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/20 overflow-hidden">
+<button class="w-12 h-12 text-on-surface flex items-center justify-center hover:bg-surface-container-low transition-colors active:bg-surface-variant border-b border-outline-variant/20">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</button>
+<button class="w-12 h-12 text-on-surface flex items-center justify-center hover:bg-surface-container-low transition-colors active:bg-surface-variant">
+<span class="material-symbols-outlined text-[24px]">remove</span>
+</button>
+</div>
+</div>
+<!-- Local Discovery Bottom Sheet -->
+<div class="absolute bottom-[72px] left-0 w-full bg-surface/85 backdrop-blur-2xl rounded-t-[24px] shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.15)] border-t border-outline-variant/40 flex flex-col z-30 transition-transform duration-300 ease-out transform translate-y-0">
+<!-- Drag Handle -->
+<div class="w-full flex justify-center pt-3 pb-2 cursor-grab active:cursor-grabbing">
+<div class="w-12 h-1.5 bg-outline-variant/50 rounded-full"></div>
+</div>
+<!-- Header -->
+<div class="px-gutter pb-4 pt-1 flex justify-between items-end">
+<div>
+<h2 class="font-headline-md-mobile text-headline-md-mobile font-bold text-on-surface">Local Discovery</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">8 active swaps within 1 mile</p>
+</div>
+<button class="text-primary font-label-caps text-label-caps hover:text-primary-container transition-colors tracking-wider">SEE ALL</button>
+</div>
+<!-- Scrollable Horizontal Bento Grid -->
+<div class="flex overflow-x-auto gap-4 px-gutter pb-6 snap-x hide-scrollbar">
+<!-- Card 1 -->
+<div class="snap-center shrink-0 w-[260px] bg-surface-container-lowest/80 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-outline-variant/30 flex flex-col gap-3 active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant/20" data-alt="A small, circular avatar portrait of a modern young man with glasses, set against a bright, solid color background. The lighting is crisp and even, reflecting a clean, high-quality profile picture typical of a modern social app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnCdYem7nAyfVltPSOBnLe7OzjVuAa0mVhENfJsQRVqM2k0_VQsBRRov2d93essYi0n5lA0cbVtuOVl5ujOhwyZE9sgNH-3oXouhYxoLr4tMij3V17-GSPWV-33smaAg7CXFsXb91iIogf9XX57VwmiwATfytxsePf9vUeLGWBjfV-gApqfObC3QfVVI3ZeLF-1ofTdFHF0oiRaxcvbDXcKvWNQrCjQ-3k2otTnOfdh3HzBFEMoYV8nZepdqUdy7h1KegxBpxf8kVo"/>
+<div class="flex-1 min-w-0">
+<p class="font-username-sm text-username-sm text-on-surface truncate">Alex T.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> 0.2 mi
+                        </p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface line-clamp-2 leading-snug">Looking to swap my pristine mechanical keyboard for a vintage film camera.</p>
+<div class="flex justify-between items-center mt-auto pt-3 border-t border-outline-variant/20">
+<div class="flex items-center gap-1.5 text-secondary font-label-caps text-label-caps bg-secondary/10 px-2.5 py-1.5 rounded-lg border border-secondary/20">
+<span>TECH</span>
+<span class="material-symbols-outlined text-[14px]">swap_horiz</span>
+<span>PHOTO</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="snap-center shrink-0 w-[260px] bg-surface-container-lowest/80 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-outline-variant/30 flex flex-col gap-3 active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-username-sm text-username-sm">
+                        JD
+                    </div>
+<div class="flex-1 min-w-0">
+<p class="font-username-sm text-username-sm text-on-surface truncate">Jamie D.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> 0.5 mi
+                        </p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface line-clamp-2 leading-snug">Offering graphic design services for 2 hours in exchange for a sturdy standing desk.</p>
+<div class="flex justify-between items-center mt-auto pt-3 border-t border-outline-variant/20">
+<div class="flex items-center gap-1.5 text-tertiary font-label-caps text-label-caps bg-tertiary/10 px-2.5 py-1.5 rounded-lg border border-tertiary/20">
+<span>SKILL</span>
+<span class="material-symbols-outlined text-[14px]">swap_horiz</span>
+<span>HOME</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 3 (Empty State / Call to Action) -->
+<div class="snap-center shrink-0 w-[200px] bg-surface-variant/30 backdrop-blur-sm rounded-xl p-4 border border-dashed border-outline-variant/50 flex flex-col items-center justify-center gap-2 active:scale-[0.98] transition-transform cursor-pointer hover:bg-surface-variant/50">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[24px]">add_location</span>
+</div>
+<p class="font-username-sm text-username-sm text-on-surface text-center">Add Your Request</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center leading-tight">Drop a pin and start swapping locally.</p>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-2 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant/30 dark:border-outline/20 shadow-lg dark:shadow-none rounded-t-xl">
+<!-- Feed Tab (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">dynamic_feed</span>
+<span class="font-label-caps text-label-caps mt-1">Feed</span>
+</button>
+<!-- Map Tab (Active) -->
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container dark:bg-secondary-fixed-dim dark:text-on-secondary-fixed rounded-full px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-label-caps text-label-caps mt-1">Map</span>
+</button>
+<!-- Swap Tab (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-caps text-label-caps mt-1">Swap</span>
+</button>
+<!-- Profile Tab (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</button>
+</nav>
+<!-- SafeArea Padding Script for specific mobile devices (optional standard practice for bottom navs) -->
+<script>
+        // Simple script to handle safe area inset at the bottom if needed, 
+        // Tailwind provides pb-safe if a plugin is added, but we rely on standard padding here.
+    </script>
+<script>
+(function(){
+  var P = {
+    feed:     '../swapfuser_social_feed_mobile/code.html',
+    messages: '../swapfuser_messages_mobile/code.html',
+    create:   '../swapfuser_create_post_mobile/code.html',
+    profile:  '../swapfuser_profile_mobile/code.html'
+  };
+  function navLabel(el){
+    var s = el.querySelector('.font-label-caps');
+    return s ? s.textContent.trim().toLowerCase() : '';
+  }
+  document.querySelectorAll('nav button').forEach(function(btn){
+    var l = navLabel(btn);
+    if(l==='feed')    btn.addEventListener('click',function(){ location.href=P.feed; });
+    else if(l==='swap')    btn.addEventListener('click',function(){ location.href=P.messages; });
+    else if(l==='profile') btn.addEventListener('click',function(){ location.href=P.profile; });
+  });
+})();
+</script>
+</body></html>

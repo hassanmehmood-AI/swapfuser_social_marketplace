@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SwapFuser Mobile Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#e0e3e5",
+                      "on-secondary-container": "#fffbff",
+                      "surface-container": "#eceef0",
+                      "primary-fixed": "#d8e2ff",
+                      "surface-container-low": "#f2f4f6",
+                      "secondary-container": "#9c48ea",
+                      "tertiary-fixed": "#ffdcc6",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#2c0051",
+                      "tertiary-fixed-dim": "#ffb786",
+                      "surface-container-highest": "#e0e3e5",
+                      "tertiary-container": "#b75b00",
+                      "surface-bright": "#f7f9fb",
+                      "surface-container-high": "#e6e8ea",
+                      "on-tertiary-container": "#fffbff",
+                      "on-surface": "#191c1e",
+                      "on-secondary-fixed-variant": "#6900b3",
+                      "outline": "#727785",
+                      "surface-tint": "#005ac2",
+                      "on-tertiary-fixed": "#311400",
+                      "on-surface-variant": "#424754",
+                      "inverse-on-surface": "#eff1f3",
+                      "secondary": "#8127cf",
+                      "on-primary-container": "#fefcff",
+                      "surface-container-lowest": "#ffffff",
+                      "success-green": "#00A63F",
+                      "primary": "#0058be",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#004395",
+                      "on-tertiary": "#ffffff",
+                      "sky-blue": "#BFE5F8",
+                      "secondary-fixed-dim": "#ddb7ff",
+                      "on-background": "#191c1e",
+                      "inverse-surface": "#2d3133",
+                      "on-tertiary-fixed-variant": "#723600",
+                      "outline-variant": "#c2c6d6",
+                      "background": "#f7f9fb",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "ink-black": "#0F172A",
+                      "inverse-primary": "#adc6ff",
+                      "tertiary": "#924700",
+                      "on-primary-fixed": "#001a42",
+                      "surface": "#f7f9fb",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#d8dadc",
+                      "primary-fixed-dim": "#adc6ff",
+                      "primary-container": "#2170e4",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed": "#f0dbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "feed-width": "600px",
+                      "margin-desktop": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "username-sm": ["Geist"],
+                      "headline-md-mobile": ["Geist"],
+                      "headline-md": ["Geist"],
+                      "label-caps": ["Geist"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Geist"]
+              },
+              "fontSize": {
+                      "username-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Lightweight custom scrollbar for feed */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e0e3e5; border-radius: 4px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/90 backdrop-blur-xl border-none">
+<button aria-label="Menu" class="material-symbols-outlined text-primary hover:bg-surface-variant/50 p-2 rounded-full active:scale-95 transition-transform duration-100 flex items-center justify-center w-10 h-10">
+            menu
+        </button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary tracking-tight">
+            SwapFuser
+        </h1>
+<button aria-label="Search" class="material-symbols-outlined text-primary hover:bg-surface-variant/50 p-2 rounded-full active:scale-95 transition-transform duration-100 flex items-center justify-center w-10 h-10">
+            search
+        </button>
+</header>
+<!-- Main Feed Content -->
+<main class="flex-grow w-full max-w-feed-width mx-auto pt-[72px] pb-[88px] flex flex-col gap-2">
+<!-- Post Card 1 -->
+<article class="bg-surface-container-lowest border-y border-outline-variant/20 md:border md:rounded-xl md:shadow-sm">
+<!-- Header -->
+<div class="flex items-center px-4 py-3">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover mr-3 bg-surface-variant" data-alt="A candid, well-lit portrait of a young stylish woman looking slightly off-camera. The background is a brightly lit, modern minimalist cafe with white walls and subtle greenery. The aesthetic is clean, light-mode friendly, and energetic, focusing on social connection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVmGOlZnWe82sh21uIUq1FR0ui9Go3h0m84vyatEdfRAete5ShHYVtAjv8tu-pVT581d0DgbvjYCPuXiRVD9sOV3m4Rl8kBJHlT0IRBEWHdN1qwb4dcPtYNiYtWSzIfXLdAibRNnB4l6E_kKIfwpSiCs5NTPiiSua2Z0vD7vj3jqkkmwfuOex2ssM4LjElDXnj1ZXPJhScNtG3UQ45miI4ggZGixh7bTClkHizCV_OZR-klSF2Rx6vqolPgsdaA4uakTnR_763HHlX"/>
+<div class="flex flex-col">
+<span class="font-username-sm text-username-sm text-on-surface">Mia_Analog</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">2 hours ago • Looking to Swap</span>
+</div>
+<button class="material-symbols-outlined ml-auto text-on-surface-variant p-2 rounded-full hover:bg-surface-variant/50">more_horiz</button>
+</div>
+<!-- Description -->
+<div class="px-4 pb-3">
+<p class="font-body-md text-body-md text-on-surface">
+                    Finally got my hands on this beauty. Mint condition Canon AE-1, but I'm looking to trade it for something more compact for street photography. Any takers in the city? 📷✨
+                </p>
+</div>
+<!-- Media Thumbnail -->
+<div class="w-full relative aspect-[4/3] bg-surface-variant overflow-hidden">
+<img alt="Vintage Camera" class="w-full h-full object-cover" data-alt="A beautifully restored vintage Canon film camera resting on a clean, light wood table. Soft, natural sunlight filters through a nearby window, casting gentle shadows and highlighting the metallic and black leather textures of the camera. The overall aesthetic is bright, minimalist, and nostalgic, perfectly suited for a modern social media feed focusing on high-quality analog photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhpvDmti4wqkOWynHFdi1wnlgvvNXzftcyA5-0UCZpQCd3CLii25Ty8mErEkNiOka7upFsjn_ix_5OAYzMOzZQJvXj-2bk4WCnqN38WPVgL-UPN1ZxNMPw4dxL3icGfWFG0vgPIvhoGuXKm6B6NXMzUkYabVMzxdMKMpxiCutoV7-9RobDUX77KfHIG5DbTpgmAslbJNguB4FCqlhN99PYu4QCRcgIyNtJZz3JQNrw4qf1GujPn5s5PmHOdl5-OcsTvZENdkPwyGmU"/>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-between px-4 py-3">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">favorite</span>
+<span class="font-body-sm text-body-sm">24</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">chat_bubble</span>
+<span class="font-body-sm text-body-sm">8</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-secondary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">swap_horiz</span>
+<span class="font-body-sm text-body-sm">Offers</span>
+</button>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">share</button>
+</div>
+</article>
+<!-- Post Card 2 -->
+<article class="bg-surface-container-lowest border-y border-outline-variant/20 md:border md:rounded-xl md:shadow-sm">
+<!-- Header -->
+<div class="flex items-center px-4 py-3">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover mr-3 bg-surface-variant" data-alt="A professional headshot of a young man with a neat beard, wearing a casual light blue shirt. He is outdoors in a bright, sunny plaza with modern glass buildings blurred softly in the background. The mood is approachable, professional, and bright." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLY1eXk2XnRWGFC6Rh4eCo-xTh1Nif8QVXp0gLyqx02goVs7YVXut0yv0rl7j3-lNAu7aElWK3LREn2gBZ4QtByL7YAz30Oft2iIArjR4eBqIltU_9sWRZDaVdrHMYM2FolBYrTelSFYvPTo7P0YESxC1uoQakM06KPcEuYPnl5IPFQXY1JP0nFO7VZz5f2mT7rOiHhLm9tdVguMY9XP1rSt57KtEgLFpAhTD9eLPNf6F4OJJlTQ29rWzbwPizwxKEEEjVjebRanr7"/>
+<div class="flex flex-col">
+<span class="font-username-sm text-username-sm text-on-surface">Alex_Builds</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">5 hours ago • Showcase</span>
+</div>
+<button class="material-symbols-outlined ml-auto text-on-surface-variant p-2 rounded-full hover:bg-surface-variant/50">more_horiz</button>
+</div>
+<!-- Description -->
+<div class="px-4 pb-3">
+<p class="font-body-md text-body-md text-on-surface">
+                    Just finished assembling this custom mechanical keyboard. Gateron Milky Yellows, lubed and filmed. Typing feels like absolute butter. Sound test incoming soon! ⌨️🎶
+                </p>
+</div>
+<!-- Media Thumbnail -->
+<div class="w-full relative aspect-video bg-surface-variant overflow-hidden">
+<img alt="Mechanical Keyboard" class="w-full h-full object-cover" data-alt="A top-down view of a modern, custom mechanical keyboard resting on a vast, clean white desk mat. The keyboard features a minimalist gray and white color scheme with a single vibrant Swap Blue accent keycap. The lighting is bright and evenly diffused, creating a crisp, high-tech aesthetic typical of premium workspace setups." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD1iF7pImpcd6HJv62zGGZ3anPd1pq5LwQPQrX206K3vCvXeN4a-YZwL2ijIb0BeJumhmWZlOPga2GZ1tTBe-QaJWLpDzFkUWaPfUTm5-ty8RdSRdWg-WMZGGGRa0tl6aEG6cfcTP0EKBKkCO5oOLiwamZ-5_p9kLydETf-tCmN-SV2myQPXmKhNmJTNvrDZ2kJZgquP5YJVQlsrMCG0bZ8Ojizh3MpZeBlC8dEe8hGkOZREvw3hQj5NH-4hyfme8QTvLHgKzHVp50"/>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-between px-4 py-3">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">favorite</span>
+<span class="font-body-sm text-body-sm">156</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">chat_bubble</span>
+<span class="font-body-sm text-body-sm">32</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-secondary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">swap_horiz</span>
+<span class="font-body-sm text-body-sm">Discuss</span>
+</button>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">share</button>
+</div>
+</article>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-2 pb-6 bg-surface border-t-none shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)] rounded-t-xl md:hidden">
+<!-- Feed (Active) -->
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 active:scale-90 transition-transform duration-200 min-w-[64px]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dynamic_feed</span>
+<span class="font-label-caps text-label-caps mt-1">Feed</span>
+</button>
+<!-- Map (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1.5 hover:bg-surface-container-high rounded-lg transition-all active:scale-90 duration-200 min-w-[64px]">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-caps text-label-caps mt-1">Map</span>
+</button>
+<!-- Swap (Inactive - Floating Action style within nav) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1.5 hover:bg-surface-container-high rounded-lg transition-all active:scale-90 duration-200 min-w-[64px]">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">add_circle</span>
+<span class="font-label-caps text-label-caps mt-0.5">Swap</span>
+</button>
+<!-- Profile (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1.5 hover:bg-surface-container-high rounded-lg transition-all active:scale-90 duration-200 min-w-[64px]">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for like buttons
+        document.querySelectorAll('button:has(span:first-child.material-symbols-outlined[innerHTML="favorite"])').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                const isLiked = icon.style.fontVariationSettings.includes("'FILL' 1");
+                
+                if (isLiked) {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                    this.classList.remove('text-error');
+                    this.classList.add('text-on-surface-variant');
+                } else {
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                    this.classList.remove('text-on-surface-variant');
+                    this.classList.add('text-error');
+                }
+                
+                // Add a little pop animation
+                icon.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    icon.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+<script>
+(function(){
+  var P = {
+    map:      '../swapfuser_map_mobile/code.html',
+    messages: '../swapfuser_messages_mobile/code.html',
+    create:   '../swapfuser_create_post_mobile/code.html',
+    profile:  '../swapfuser_profile_mobile/code.html'
+  };
+  function navLabel(el){
+    var s = el.querySelector('.font-label-caps');
+    return s ? s.textContent.trim().toLowerCase() : '';
+  }
+  document.querySelectorAll('nav button').forEach(function(btn){
+    var l = navLabel(btn);
+    if(l==='map')     btn.addEventListener('click',function(){ location.href=P.map; });
+    else if(l==='swap')    btn.addEventListener('click',function(){ location.href=P.messages; });
+    else if(l==='profile') btn.addEventListener('click',function(){ location.href=P.profile; });
+  });
+})();
+</script>
+</body></html>

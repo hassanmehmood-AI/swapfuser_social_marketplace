@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwapFuser — Social Exchange</title>
+<style>
+  body { margin: 0; background: #f7f9fb; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; }
+  .splash { text-align: center; }
+  .logo { font-size: 2.5rem; font-weight: 700; }
+  .logo .swap { color: #3B82F6; }
+  .logo .fuser { color: #A855F7; }
+  p { color: #727785; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<div class="splash">
+  <div class="logo"><span class="swap">Swap</span><span class="fuser">Fuser</span></div>
+  <p>Redirecting…</p>
+</div>
+<script>
+  // Route to desktop or mobile feed based on viewport width
+  var isMobile = window.innerWidth < 768;
+  if (isMobile) {
+    location.replace('mbl/swapfuser_social_feed_mobile/code.html');
+  } else {
+    location.replace('desktop/swapfuser_social_feed/code.html');
+  }
+</script>
+</body>
+</html>

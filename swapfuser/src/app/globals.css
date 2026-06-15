@@ -1,0 +1,377 @@
+@import "tailwindcss";
+
+/* ─── Class-based dark mode (html.dark) ─────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Design Tokens ──────────────────────────────────────────────────── */
+@theme {
+  /* Primary */
+  --color-primary:                    #0058be;
+  --color-on-primary:                 #ffffff;
+  --color-primary-container:          #2170e4;
+  --color-on-primary-container:       #fefcff;
+  --color-primary-fixed:              #d8e2ff;
+  --color-primary-fixed-dim:          #adc6ff;
+  --color-on-primary-fixed:           #001a42;
+  --color-on-primary-fixed-variant:   #004395;
+  --color-inverse-primary:            #adc6ff;
+  --color-surface-tint:               #005ac2;
+
+  /* Secondary */
+  --color-secondary:                  #8127cf;
+  --color-on-secondary:               #ffffff;
+  --color-secondary-container:        #9c48ea;
+  --color-on-secondary-container:     #fffbff;
+  --color-secondary-fixed:            #f0dbff;
+  --color-secondary-fixed-dim:        #ddb7ff;
+  --color-on-secondary-fixed:         #2c0051;
+  --color-on-secondary-fixed-variant: #6900b3;
+
+  /* Tertiary */
+  --color-tertiary:                   #924700;
+  --color-on-tertiary:                #ffffff;
+  --color-tertiary-container:         #b75b00;
+  --color-on-tertiary-container:      #fffbff;
+  --color-tertiary-fixed:             #ffdcc6;
+  --color-tertiary-fixed-dim:         #ffb786;
+  --color-on-tertiary-fixed:          #311400;
+  --color-on-tertiary-fixed-variant:  #723600;
+
+  /* Error */
+  --color-error:                      #ba1a1a;
+  --color-on-error:                   #ffffff;
+  --color-error-container:            #ffdad6;
+  --color-on-error-container:         #93000a;
+
+  /* Surfaces */
+  --color-background:                 #f7f9fb;
+  --color-on-background:              #191c1e;
+  --color-surface:                    #f7f9fb;
+  --color-surface-bright:             #f7f9fb;
+  --color-surface-dim:                #d8dadc;
+  --color-surface-variant:            #e0e3e5;
+  --color-surface-container-lowest:   #ffffff;
+  --color-surface-container-low:      #f2f4f6;
+  --color-surface-container:          #eceef0;
+  --color-surface-container-high:     #e6e8ea;
+  --color-surface-container-highest:  #e0e3e5;
+  --color-on-surface:                 #191c1e;
+  --color-on-surface-variant:         #424754;
+  --color-inverse-surface:            #2d3133;
+  --color-inverse-on-surface:         #eff1f3;
+
+  /* Outline */
+  --color-outline:                    #727785;
+  --color-outline-variant:            #c2c6d6;
+
+  /* Brand extras */
+  --color-success-green:              #00A63F;
+  --color-sky-blue:                   #BFE5F8;
+  --color-ink-black:                  #0F172A;
+
+  /* Border Radius — matches HTML Tailwind config */
+  --radius:      0.25rem;   /* rounded        */
+  --radius-sm:   0.125rem;
+  --radius-md:   0.375rem;
+  --radius-lg:   0.5rem;    /* rounded-lg     */
+  --radius-xl:   0.75rem;   /* rounded-xl     */
+  --radius-2xl:  1rem;
+  --radius-3xl:  1.5rem;
+  --radius-full: 9999px;    /* rounded-full   */
+
+  /* Spacing tokens */
+  --spacing-base:           4px;
+  --spacing-gutter:         16px;
+  --spacing-margin-mobile:  16px;
+  --spacing-margin-desktop: 24px;
+}
+
+/* ─── Font family utilities (resolved at runtime from next/font vars) ── */
+@theme inline {
+  --font-display-lg:          var(--font-geist-sans, "Geist", sans-serif);
+  --font-headline-md:         var(--font-geist-sans, "Geist", sans-serif);
+  --font-headline-md-mobile:  var(--font-geist-sans, "Geist", sans-serif);
+  --font-username-sm:         var(--font-geist-sans, "Geist", sans-serif);
+  --font-label-caps:          var(--font-geist-sans, "Geist", sans-serif);
+  --font-body-md:             var(--font-inter, "Inter", sans-serif);
+  --font-body-sm:             var(--font-inter, "Inter", sans-serif);
+}
+
+/* ─── Typography compound utilities ──────────────────────────────────── */
+/* These exactly replicate the HTML's fontSize Tailwind v3 config        */
+@utility text-display-lg {
+  font-size: 3rem;
+  line-height: 3.5rem;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+@utility text-headline-md {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+}
+
+@utility text-headline-md-mobile {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+}
+
+@utility text-username-sm {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+}
+
+@utility text-body-md {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+@utility text-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+@utility text-label-caps {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+/* ─── Max-width tokens ───────────────────────────────────────────────── */
+@utility max-w-container-max { max-width: 1280px; }
+@utility max-w-feed-width    { max-width: 600px;  }
+
+/* ─── Material Symbols helpers ───────────────────────────────────────── */
+@utility material-symbols-fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Safe area (mobile notch) ───────────────────────────────────────── */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+/* ─── Scrollbar hiding ───────────────────────────────────────────────── */
+@utility hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ─── Leaflet map overrides ──────────────────────────────────────────── */
+.sf-marker {
+  background: none !important;
+  border: none !important;
+}
+
+.sf-pin {
+  border-radius: 50%;
+  border: 2.5px solid white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+.sf-pin:hover {
+  transform: scale(1.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+}
+
+.sf-pin--selected {
+  box-shadow: 0 0 0 3px white, 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.sf-pin .material-symbols-outlined {
+  color: white;
+  line-height: 1;
+}
+
+.sf-popup .leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(194, 198, 214, 0.4);
+  padding: 0;
+}
+
+.sf-popup .leaflet-popup-content {
+  margin: 12px;
+}
+
+.sf-popup .leaflet-popup-tip {
+  background: white;
+  box-shadow: none;
+}
+
+/* "You are here" pulsing dot */
+.sf-user-location {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.sf-user-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: #0058be;
+  border: 2.5px solid white;
+  box-shadow: 0 2px 8px rgba(0, 88, 190, 0.5);
+  z-index: 2;
+}
+
+.sf-user-pulse {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 88, 190, 0.3);
+  animation: sf-pulse 2s ease-out infinite;
+  z-index: 1;
+}
+
+@keyframes sf-pulse {
+  0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(4.5); opacity: 0; }
+}
+
+/* Cluster icon */
+.sf-cluster-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #0058be;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  box-shadow: 0 2px 12px rgba(0, 88, 190, 0.35);
+  font-family: var(--font-geist-sans, sans-serif);
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@utility animate-fade-in-up  { animation: fade-in-up 0.35s ease-out forwards; }
+@utility animate-fade-in      { animation: fade-in    0.25s ease-out forwards; }
+@utility animate-scale-in     { animation: scale-in   0.2s  ease-out forwards; }
+
+/* Stagger helpers */
+@utility animation-delay-100  { animation-delay: 100ms; }
+@utility animation-delay-200  { animation-delay: 200ms; }
+@utility animation-delay-300  { animation-delay: 300ms; }
+@utility animation-delay-400  { animation-delay: 400ms; }
+@utility animation-delay-500  { animation-delay: 500ms; }
+
+/* ─── Focus ring ─────────────────────────────────────────────────────── */
+@utility focus-ring {
+  outline: none;
+  &:focus-visible { ring-width: 2px; ring-color: var(--color-primary); ring-offset-width: 2px; }
+}
+
+/* ─── Dark mode color overrides ─────────────────────────────────────── */
+/* These override every @theme token when html.dark is active            */
+.dark {
+  /* Primary */
+  --color-primary:                    #adc6ff;
+  --color-on-primary:                 #002f6e;
+  --color-primary-container:          #004395;
+  --color-on-primary-container:       #d8e2ff;
+  --color-primary-fixed:              #d8e2ff;
+  --color-primary-fixed-dim:          #adc6ff;
+  --color-on-primary-fixed:           #001a42;
+  --color-on-primary-fixed-variant:   #004395;
+  --color-inverse-primary:            #0058be;
+  --color-surface-tint:               #adc6ff;
+
+  /* Secondary */
+  --color-secondary:                  #ddb7ff;
+  --color-on-secondary:               #460074;
+  --color-secondary-container:        #6900b3;
+  --color-on-secondary-container:     #f0dbff;
+  --color-secondary-fixed:            #f0dbff;
+  --color-secondary-fixed-dim:        #ddb7ff;
+  --color-on-secondary-fixed:         #2c0051;
+  --color-on-secondary-fixed-variant: #6900b3;
+
+  /* Tertiary */
+  --color-tertiary:                   #ffb786;
+  --color-on-tertiary:                #4f2000;
+  --color-tertiary-container:         #723600;
+  --color-on-tertiary-container:      #ffdcc6;
+
+  /* Error */
+  --color-error:                      #ffb4ab;
+  --color-on-error:                   #690005;
+  --color-error-container:            #93000a;
+  --color-on-error-container:         #ffdad6;
+
+  /* Surfaces */
+  --color-background:                 #111416;
+  --color-on-background:              #e1e3e5;
+  --color-surface:                    #111416;
+  --color-surface-bright:             #2d3133;
+  --color-surface-dim:                #111416;
+  --color-surface-variant:            #424754;
+  --color-surface-container-lowest:   #0c0e10;
+  --color-surface-container-low:      #191c1e;
+  --color-surface-container:          #1e2123;
+  --color-surface-container-high:     #282b2d;
+  --color-surface-container-highest:  #333638;
+  --color-on-surface:                 #e1e3e5;
+  --color-on-surface-variant:         #c2c6d6;
+  --color-inverse-surface:            #e1e3e5;
+  --color-inverse-on-surface:         #2d3133;
+
+  /* Outline */
+  --color-outline:                    #8c9099;
+  --color-outline-variant:            #424754;
+
+  /* Brand extras */
+  --color-success-green:              #5cd889;
+}
+
+.dark body {
+  background-color: #111416;
+  color: #e1e3e5;
+}
+

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SwapFuser - User Profile</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts (Geist & Inter conceptually represented via standard imports if actual font files aren't provided, but system usually handles default fallbacks or assumes existence if specified in config) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Assuming Geist is available or falls back nicely -->
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from Style Guidance -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#e0e3e5",
+                      "on-secondary-container": "#fffbff",
+                      "surface-container": "#eceef0",
+                      "primary-fixed": "#d8e2ff",
+                      "surface-container-low": "#f2f4f6",
+                      "secondary-container": "#9c48ea",
+                      "tertiary-fixed": "#ffdcc6",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#2c0051",
+                      "tertiary-fixed-dim": "#ffb786",
+                      "surface-container-highest": "#e0e3e5",
+                      "tertiary-container": "#b75b00",
+                      "surface-bright": "#f7f9fb",
+                      "surface-container-high": "#e6e8ea",
+                      "on-tertiary-container": "#fffbff",
+                      "on-surface": "#191c1e",
+                      "on-secondary-fixed-variant": "#6900b3",
+                      "outline": "#727785",
+                      "surface-tint": "#005ac2",
+                      "on-tertiary-fixed": "#311400",
+                      "on-surface-variant": "#424754",
+                      "inverse-on-surface": "#eff1f3",
+                      "secondary": "#8127cf",
+                      "on-primary-container": "#fefcff",
+                      "surface-container-lowest": "#ffffff",
+                      "success-green": "#00A63F",
+                      "primary": "#0058be",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#004395",
+                      "on-tertiary": "#ffffff",
+                      "sky-blue": "#BFE5F8",
+                      "secondary-fixed-dim": "#ddb7ff",
+                      "on-background": "#191c1e",
+                      "inverse-surface": "#2d3133",
+                      "on-tertiary-fixed-variant": "#723600",
+                      "outline-variant": "#c2c6d6",
+                      "background": "#f7f9fb",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "ink-black": "#0F172A",
+                      "inverse-primary": "#adc6ff",
+                      "tertiary": "#924700",
+                      "on-primary-fixed": "#001a42",
+                      "surface": "#f7f9fb",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#d8dadc",
+                      "primary-fixed-dim": "#adc6ff",
+                      "primary-container": "#2170e4",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed": "#f0dbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "feed-width": "600px",
+                      "margin-desktop": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "username-sm": [
+                              "Geist", "sans-serif"
+                      ],
+                      "headline-md-mobile": [
+                              "Geist", "sans-serif"
+                      ],
+                      "headline-md": [
+                              "Geist", "sans-serif"
+                      ],
+                      "label-caps": [
+                              "Geist", "sans-serif"
+                      ],
+                      "body-sm": [
+                              "Inter", "sans-serif"
+                      ],
+                      "body-md": [
+                              "Inter", "sans-serif"
+                      ],
+                      "display-lg": [
+                              "Geist", "sans-serif"
+                      ]
+              },
+              "fontSize": {
+                      "username-sm": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        /* Base styles to ensure proper rendering of Material Symbols */
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom hide scrollbar for horizontal feeds if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl flex justify-between items-center px-gutter h-16 shadow-none">
+<button aria-label="Menu" class="p-2 -ml-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full active:scale-95 transition-transform duration-100">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">SwapFuser</h1>
+<button aria-label="Search" class="p-2 -mr-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full active:scale-95 transition-transform duration-100">
+<span class="material-symbols-outlined">search</span>
+</button>
+</header>
+<!-- Main Scrollable Area -->
+<main class="pt-16 pb-24 md:pb-8 max-w-[600px] mx-auto min-h-screen flex flex-col bg-surface">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center pt-8 px-gutter">
+<!-- Avatar -->
+<div class="relative">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface shadow-sm ring-2 ring-surface-variant ring-offset-2">
+<img alt="Profile picture" class="w-full h-full object-cover" data-alt="A high-quality, vibrant headshot of an energetic young adult woman looking directly at the camera with a subtle smile. She is set against a clean, modern, slightly blurred studio background with soft, high-key lighting that evokes a light-mode aesthetic. The color palette emphasizes natural skin tones, bright whites, and very subtle hints of primary blue in her clothing to match the platform's brand. The overall mood is approachable, modern, and social." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoP2T9D90NnJOdAOY8548MtSkD3hi8HnKns6HImbRrThgMg45GijdO1uNzS55JtBccXPlEElrqKp8Ct892zO8be59k06vStr4sDn2hg5U3YsCKrsgJr78vL1g-NxjQ7XwRvHWO21-H-oLFdjhbhEBXZFL9J1VHcdSbOZs04rnpk7PiJ6lYFFsrgSaCqAQg7jwNMVzjGW_7XMQPU1lOq9iY1TNfGD0LxyvZ5BowNlM2R8yBx9nfSlzCLd-xXpgqRpULkl1KuA6E8cUa"/>
+</div>
+<!-- Online indicator -->
+<div class="absolute bottom-1 right-1 w-5 h-5 bg-success-green border-2 border-surface rounded-full"></div>
+</div>
+<!-- User Info -->
+<h2 class="mt-4 font-headline-md-mobile text-headline-md-mobile text-on-surface">Elena Rodriguez</h2>
+<p class="font-username-sm text-username-sm text-on-surface-variant">@elenaswaps</p>
+<!-- Bio -->
+<p class="mt-3 text-center font-body-sm text-body-sm text-on-surface-variant max-w-[280px]">
+                Digital artist &amp; synth enthusiast. Swapping beats for visual textures. Let's collaborate! 🎹✨
+            </p>
+<!-- Action Buttons -->
+<div class="flex gap-3 mt-6 w-full max-w-[320px]">
+<button class="flex-1 bg-primary text-on-primary font-label-caps text-label-caps py-3 rounded-full hover:bg-primary/90 active:scale-95 transition-all shadow-sm">
+                    Follow
+                </button>
+<button class="flex-1 bg-transparent border border-secondary text-secondary font-label-caps text-label-caps py-3 rounded-full hover:bg-secondary/5 active:scale-95 transition-all">
+                    Message
+                </button>
+</div>
+<!-- Stats -->
+<div class="flex justify-around w-full mt-8 py-4 border-y border-outline-variant/30">
+<div class="flex flex-col items-center">
+<span class="font-username-sm text-username-sm text-on-surface">1.2k</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1">Followers</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-username-sm text-username-sm text-on-surface">843</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1">Following</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-username-sm text-username-sm text-on-surface">156</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1">Swaps</span>
+</div>
+</div>
+</section>
+<!-- "About Me" Video Placeholder -->
+<section class="mt-8 px-gutter">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-username-sm text-username-sm text-on-surface">About Me</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">more_horiz</span>
+</div>
+<div class="relative w-full aspect-video bg-surface-container-high rounded-xl overflow-hidden group cursor-pointer shadow-sm">
+<!-- Thumbnail -->
+<img alt="Video thumbnail" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500" data-alt="A wide cinematic shot serving as a video thumbnail, showing a modern, minimalist music studio setup. The scene features a sleek desk with a synthesizer and a laptop, bathed in crisp, natural light coming from an off-screen window. The atmosphere is creative and inviting, utilizing a light mode aesthetic with white surfaces and subtle accents of Swap Blue and Fuser Purple in the background LED lighting. The composition suggests an energetic and professional 'About Me' introduction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_SISvsLj_rp-XLxR86gHVvb4d9avld1cxjNJilwjV4QrhyGbABcIXv2sugTLOzFX9rjHL9JW8_r8R6z4lXXFadA_bosKHGpiXy1v0TmSyX4mF0GN9ZfPLnmaS6vFmHcFikegGF3vwA4nnGphDBvpVMAgvKZHAkiMAiiO5BqiMxEsFD3pPeI3YaP8OMVBzF4Otp_TRah2K7MFxaxipGdNwffHQ0wAsNzeCrg514rSPvTwNoD-lOL8XJu3HH892cu_N7Imps1uyK43C"/>
+<!-- Play Button Overlay -->
+<div class="absolute inset-0 bg-ink-black/20 flex items-center justify-center group-hover:bg-ink-black/10 transition-colors">
+<div class="w-14 h-14 bg-surface/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<!-- Duration badge -->
+<div class="absolute bottom-3 right-3 bg-ink-black/70 backdrop-blur-sm text-on-tertiary px-2 py-1 rounded font-label-caps text-[10px]">
+                    1:24
+                </div>
+</div>
+</section>
+<!-- Spacer -->
+<div class="h-2 bg-surface-container-low mt-8 w-full"></div>
+<!-- Vertical Feed (Posts) -->
+<section class="flex flex-col w-full">
+<div class="sticky top-16 z-40 bg-surface/90 backdrop-blur-md px-gutter py-3 border-b border-outline-variant/20 flex gap-6">
+<button class="font-username-sm text-username-sm text-primary border-b-2 border-primary pb-1">Recent Swaps</button>
+<button class="font-body-sm text-body-sm text-on-surface-variant pb-1">Gallery</button>
+</div>
+<!-- Post 1 -->
+<article class="pt-6 pb-4 px-gutter border-b border-surface-container-high bg-surface">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAScZ30RihPw8qtsa_UmnPMXxANzs9pFMw3Fx4t8kQt5WiPmOzw0u81wrrEc4uj5TzKxiEgG-oIVRELUQdOEL0ANwOywspGRmxodyVth1PQtAMOz3KiiYmuLee_exZF_g6ewImhOnekrByL6Unu3N0kmJYQUSGmIv3dtL7NcxxeYiUMwhEnYo_6UF2ek8L6ggqdSrPEVg7n31oVe2CgA7Q2O_wxwvdYtiQg_gYj1a66Vo9IIToH6in33Z_PyD9Mq2jGv_a9AvE8l1FF"/>
+</div>
+<div>
+<p class="font-username-sm text-username-sm text-on-surface">Elena Rodriguez</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant mt-0.5">2 hours ago</p>
+</div>
+</div>
+<button class="text-on-surface-variant"><span class="material-symbols-outlined text-xl">more_vert</span></button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface mb-3">
+                    Just finished rendering these new fluid textures. Anyone need visuals for their next track? Looking to swap for some ambient synth stems! 🌊🎹
+                </p>
+<div class="w-full aspect-[4/3] rounded-lg overflow-hidden bg-surface-container-low mb-4">
+<img alt="Post content" class="w-full h-full object-cover" data-alt="Abstract fluid art digital rendering. The image showcases smooth, sweeping curves of liquid-like forms intertwining. The color palette is modern and ethereal, featuring gradients of Swap Blue and Fuser Purple against a stark white background, reflecting a glassmorphism aesthetic. The texture appears incredibly smooth and glossy, perfectly fitting a high-quality digital design portfolio piece." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaom47RxmG_vUo_l1kYmZbHZ4pqoZt8nioorgP3sZwBO5BHhBQCLw2JQXRUEDGEZUQ9x10goBKpkOF8ybTtGmJfaYp4LqWGMB0iFjYkSa7LS9F-jB6ifGtwNaNWIM1EKN-phy-ehKPd-ilR31rC6Ru4qaYROmBDezT3IYX8RQ65LmDoUzh63NrGU7q7l1KtQTpt1Dyz20C-zTtvR6MRyObr97XK6i9IZHvwuvXvmWxR1EItfaWh73lL9j4tAaHK0nzn5Uh_W9G4Ie3"/>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex gap-6">
+<button class="flex items-center gap-1.5 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">favorite</span>
+<span class="font-body-sm text-body-sm">124</span>
+</button>
+<button class="flex items-center gap-1.5 hover:text-secondary transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">swap_calls</span>
+<span class="font-body-sm text-body-sm">12</span>
+</button>
+<button class="flex items-center gap-1.5 hover:text-on-surface transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">chat_bubble</span>
+<span class="font-body-sm text-body-sm">8</span>
+</button>
+</div>
+<button class="hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+</div>
+</article>
+<!-- Post 2 (Text only) -->
+<article class="pt-6 pb-4 px-gutter border-b border-surface-container-high bg-surface">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyWCcCzsFO_fI6nOvO_7mW5mxeSAr9oCA5AqsQybmS55z8a2orgKq0uZlr9YnpWI1nHrMuhsqhlQK33_dhg59buEBmldV6nryXK2CbN8g5UshyhtV5ngbIvRU-sxpqylOsfptp--z-6KjYWydQuCCh06VcHQXHOe3QVtVrlYq2hex4mdhxmNLI3DfaAJWRmvsOErN1TlK_cqTnDWE2BOiJcnhdRQRS0oH1d4S8mskOE32cYhFXgZ7kmNYZ8vdkYw2pXS6_qA4_mEZ-"/>
+</div>
+<div>
+<p class="font-username-sm text-username-sm text-on-surface">Elena Rodriguez</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant mt-0.5">1 day ago</p>
+</div>
+</div>
+<button class="text-on-surface-variant"><span class="material-symbols-outlined text-xl">more_vert</span></button>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-4">
+                    Experimenting with the new routing features on the platform. The discovery engine here is actually insane compared to legacy forums. Found three potential collab partners in under 10 minutes. 🚀
+                </p>
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex gap-6">
+<button class="flex items-center gap-1.5 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">favorite</span>
+<span class="font-body-sm text-body-sm">89</span>
+</button>
+<button class="flex items-center gap-1.5 hover:text-secondary transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">swap_calls</span>
+<span class="font-body-sm text-body-sm">3</span>
+</button>
+<button class="flex items-center gap-1.5 hover:text-on-surface transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">chat_bubble</span>
+<span class="font-body-sm text-body-sm">14</span>
+</button>
+</div>
+<button class="hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-2 pb-safe bg-surface border-t border-outline-variant/30 shadow-lg rounded-t-xl">
+<!-- Feed (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all rounded-lg active:scale-90 duration-200">
+<span class="material-symbols-outlined text-2xl mb-1">dynamic_feed</span>
+<span class="font-label-caps text-label-caps text-[10px]">Feed</span>
+</button>
+<!-- Map (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all rounded-lg active:scale-90 duration-200">
+<span class="material-symbols-outlined text-2xl mb-1">map</span>
+<span class="font-label-caps text-label-caps text-[10px]">Map</span>
+</button>
+<!-- Swap (Inactive - usually a central FAB, but JSON puts it in nav) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all rounded-lg active:scale-90 duration-200">
+<span class="material-symbols-outlined text-2xl mb-1">add_circle</span>
+<span class="font-label-caps text-label-caps text-[10px]">Swap</span>
+</button>
+<!-- Profile (ACTIVE) -->
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 hover:bg-secondary-container/90 transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined text-2xl mb-1" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-caps text-label-caps text-[10px]">Profile</span>
+</button>
+</nav>
+<!-- Safe area padding for newer iOS devices -->
+<style>
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+    </style>
+<script>
+(function(){
+  var P = {
+    feed:     '../swapfuser_social_feed_mobile/code.html',
+    map:      '../swapfuser_map_mobile/code.html',
+    messages: '../swapfuser_messages_mobile/code.html',
+    create:   '../swapfuser_create_post_mobile/code.html'
+  };
+  function navLabel(el){
+    var s = el.querySelector('.font-label-caps');
+    return s ? s.textContent.trim().toLowerCase() : '';
+  }
+  document.querySelectorAll('nav button').forEach(function(btn){
+    var l = navLabel(btn);
+    if(l==='feed')    btn.addEventListener('click',function(){ location.href=P.feed; });
+    else if(l==='map')     btn.addEventListener('click',function(){ location.href=P.map; });
+    else if(l==='swap')    btn.addEventListener('click',function(){ location.href=P.messages; });
+  });
+})();
+</script>
+</body></html>

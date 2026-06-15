@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SwapFuser - Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-container": "#fffbff",
+                        "surface-container": "#eceef0",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-container": "#9c48ea",
+                        "tertiary-fixed": "#ffdcc6",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#2c0051",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-container": "#b75b00",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-container": "#fffbff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "outline": "#727785",
+                        "surface-tint": "#005ac2",
+                        "on-tertiary-fixed": "#311400",
+                        "on-surface-variant": "#424754",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary": "#8127cf",
+                        "on-primary-container": "#fefcff",
+                        "surface-container-lowest": "#ffffff",
+                        "success-green": "#00A63F",
+                        "primary": "#0058be",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-tertiary": "#ffffff",
+                        "sky-blue": "#BFE5F8",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "outline-variant": "#c2c6d6",
+                        "background": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "ink-black": "#0F172A",
+                        "inverse-primary": "#adc6ff",
+                        "tertiary": "#924700",
+                        "on-primary-fixed": "#001a42",
+                        "surface": "#f7f9fb",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "primary-fixed-dim": "#adc6ff",
+                        "primary-container": "#2170e4",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#f0dbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "feed-width": "600px",
+                        "margin-desktop": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "username-sm": ["Geist"],
+                        "headline-md-mobile": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "label-caps": ["Geist"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "username-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-md-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .message-in { animation: slideIn 0.3s ease-out forwards; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-hidden w-full h-screen relative">
+<!-- Screen 1: Messages List -->
+<div class="absolute inset-0 flex flex-col w-full h-full bg-surface z-10 transition-transform duration-300 transform translate-x-0" id="messages-list-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-xl flex justify-between items-center px-gutter h-16 transition-colors">
+<button class="p-2 -ml-2 text-primary dark:text-primary-fixed hover:bg-surface-variant/50 dark:hover:bg-surface-variant/20 transition-colors rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary dark:text-primary-fixed text-center absolute left-1/2 -translate-x-1/2">Messages</h1>
+<button class="p-2 -mr-2 text-primary dark:text-primary-fixed hover:bg-surface-variant/50 dark:hover:bg-surface-variant/20 transition-colors rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+</header>
+<!-- Main Content (Messages List) -->
+<main class="flex-1 overflow-y-auto no-scrollbar pt-[80px] pb-[88px] px-margin-mobile">
+<div class="space-y-2">
+<!-- Conversation Item (Unread) -->
+<button class="w-full flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 hover:shadow-sm transition-all active:scale-[0.98] text-left" onclick="openChat()">
+<div class="relative flex-shrink-0">
+<img alt="Avatar" class="w-14 h-14 rounded-full object-cover" data-alt="A close up portrait photo of a young woman with a warm smile, set against a soft, bright, minimalist modern social media app background. The lighting is soft white and highly flattering. The color palette emphasizes clean whites and soft skin tones with a hint of vibrant modern blue in the background to match a high-velocity social exchange platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaHUBpHVJU-LG0jm-mL529oNF-Ym3uC3hwkPc9FVUENTB91cjxHQbJuljy8Fi2QNk9trBZ6LvzOKOwb2_6SCnYlo0Lj_boQDPboRH3ucPUbH7SAf1YJXA5paef8uIoiLly4DSwYkpY5FbBpFQHRpBp9xCAuDNuRRrKq7J3xfncHNTltxu38CpQrm991usZTipSs-aEoYnEhO9Fximdhn_FzGySHDwDeq7SnS774wm1Kk4m09eqyA7qYcrIPtFnsf6goZYlNrEsoe2Q"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success-green border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-username-sm text-username-sm text-on-surface truncate">Elena R.</h3>
+<span class="font-body-sm text-body-sm text-primary font-medium flex-shrink-0 ml-2">2m</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium truncate">Hey! Is the vintage camera still available for swap?</p>
+</div>
+<div class="w-2.5 h-2.5 bg-primary rounded-full flex-shrink-0"></div>
+</button>
+<!-- Conversation Item (Read) -->
+<button class="w-full flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 hover:shadow-sm transition-all active:scale-[0.98] text-left opacity-80" onclick="openChat()">
+<div class="relative flex-shrink-0">
+<img alt="Avatar" class="w-14 h-14 rounded-full object-cover" data-alt="A portrait photo of a young man with a casual style, set against a soft, bright, minimalist modern social media app background. The lighting is soft white and highly flattering. The color palette emphasizes clean whites and soft skin tones with a hint of vibrant modern blue in the background to match a high-velocity social exchange platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4GdfLzD4QN4SjStOk_SG4QZgmasf_syC2sp3tFVh8a0DxnNTHSFFuFSX9ndF4lXbNEcEuF_UIqUK9DphCL4rmax807YvULk53xhdb9B1lAFDmziYJEG1dTAQSwFop1NNDQOmOI1lA8Qw7t--GosvUkz00v3XaHkLDj9tRF5ZFV2GXpgXlSATiQJJMQzkK5WvH-qy_cIoYd0G0vlR3OoYhWZ78p1_4JyOIsYjh3N3AkI31vH6WUDDrnENSo4w5mS0Nby8jxkEKzlXc"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-username-sm text-username-sm text-on-surface truncate">Marcus T.</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex-shrink-0 ml-2">1h</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Sounds good, let's meet at the cafe downtown tomorrow.</p>
+</div>
+</button>
+<!-- Conversation Item (Read) -->
+<button class="w-full flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 hover:shadow-sm transition-all active:scale-[0.98] text-left opacity-80" onclick="openChat()">
+<div class="relative flex-shrink-0">
+<div class="w-14 h-14 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-display-lg text-[24px]">S</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-username-sm text-username-sm text-on-surface truncate">Sarah W.</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex-shrink-0 ml-2">Yesterday</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Thanks for the smooth trade!</p>
+</div>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-2 pb-safe bg-surface dark:bg-inverse-surface rounded-t-xl border-t border-outline-variant/30 dark:border-outline/20 shadow-lg dark:shadow-none transition-colors md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">dynamic_feed</span>
+<span class="font-label-caps text-label-caps">Feed</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">map</span>
+<span class="font-label-caps text-label-caps">Map</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container dark:bg-secondary-fixed-dim dark:text-on-secondary-fixed rounded-full px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-label-caps text-label-caps">Swap</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</button>
+</nav>
+</div>
+<!-- Screen 2: Full Screen Chat -->
+<div class="absolute inset-0 flex flex-col w-full h-full bg-surface z-50 transition-transform duration-300 transform translate-x-full" id="chat-screen">
+<!-- Chat Header -->
+<header class="flex-shrink-0 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/30 pt-safe">
+<div class="flex items-center px-4 h-16">
+<button class="p-2 -ml-2 text-on-surface hover:bg-surface-variant/50 rounded-full active:scale-95 transition-all" onclick="closeChat()">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex items-center gap-3 ml-2 flex-1">
+<div class="relative">
+<img alt="Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="A close up portrait photo of a young woman with a warm smile, set against a soft, bright, minimalist modern social media app background. The lighting is soft white and highly flattering. The color palette emphasizes clean whites and soft skin tones with a hint of vibrant modern blue in the background to match a high-velocity social exchange platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNPv8sgexscXFiyY0BQDagDdtX0m6QzXPVQqTDp6DeOhBFtuOfVeVTVLFZrUzpmo6_sJPasHxUKVStTJBY80hgGXtIazVllUizQdxgjTBTF9dzcGy7OY5b4-YBDQWdPL6PNTJfIDmFZa2eWej6KhY8F3918AkC8Ap-POtvV1swmzPosLx-HWBJM2Rq8znjVk8GfewgROZIXqdBn1qCkYaVx3ipwb0GFDgkh4eS70ixV_rjTVzjL_4M0cMhXS1O0KM-hDBxfqUiMZls"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-success-green border-2 border-surface rounded-full"></span>
+</div>
+<div>
+<h2 class="font-username-sm text-username-sm text-on-surface leading-tight">Elena R.</h2>
+<p class="font-body-sm text-[12px] text-on-surface-variant leading-tight">Online</p>
+</div>
+</div>
+<button class="p-2 -mr-2 text-on-surface hover:bg-surface-variant/50 rounded-full active:scale-95 transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Proposed Swap Context -->
+<div class="px-4 py-3 bg-surface-container-low border-t border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Item" class="w-full h-full object-cover" data-alt="A product photography shot of a classic vintage film camera resting on a clean, bright minimalist white table. The lighting is soft and modern. The overall aesthetic is clean, high-end, and glassmorphism-adjacent, fitting a modern swap and trade application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRFlLoyEJKeAnHxfiVWoY_XRhBY37EFIvLgOtPeQWLTH_k2RZkZiGn8xWeDAAehVjtq7vmYOX2JBQJDkcUnJoUNSJMHEMkC3J-QeZy6qPU6p1AhunaEbDyERalRe80EIsnzVkN0k4VwSsorbh0SrdUBo8O5yvYPcBKm5bkuwjxrkIUjfmWWFyRq4ZgQBwTdmbgkmDx-1PxgEmY4CpBYSKI1mn-1x3r5iRRR2VNJuqIjHW9K_leanqGEXXGYKKr22UvlybGAEKvUv__"/>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-primary uppercase tracking-wider mb-0.5">Proposed Swap</p>
+<p class="font-username-sm text-[14px] text-on-surface leading-tight">Vintage Canon AE-1</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary">sync_alt</span>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="font-label-caps text-[10px] text-primary uppercase tracking-wider mb-0.5 opacity-0">Target</p>
+<p class="font-username-sm text-[14px] text-on-surface leading-tight">Your Vinyl Collection</p>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Item" class="w-full h-full object-cover" data-alt="A stack of classic vinyl records in colorful sleeves resting on a clean, bright minimalist white table. The lighting is soft and modern. The overall aesthetic is clean, high-end, and glassmorphism-adjacent, fitting a modern swap and trade application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbtf5SXg-UxO5AbqdbFao9StvdXr4QOqfzLYc0QQhEbWlj5J-ZTButWlHEMB8Bv_gKuq2No0wiMLmiTlShC1CwYkKp_OJE8Lw3Nmb8X4KiEcOhgiRrLA6zMUb0canMkNCsBj7PixL18dMlzgJA3Ye56eU9koBo_qmuyM-venOnSIHCVD1-jTrHr-Dd0Oy_dg8Ai15kS7w7Y1jwBTXgM2sBI3Mxry22jZt9r3mBA4H7AkzbmWaUx4e91ZDw4aqw5lNsJZwiWedd5p-A"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Chat Messages Canvas -->
+<main class="flex-1 overflow-y-auto p-4 space-y-4 bg-surface-bright flex flex-col no-scrollbar">
+<div class="text-center my-2">
+<span class="font-label-caps text-[11px] text-on-surface-variant bg-surface-container-low px-3 py-1 rounded-full">Today</span>
+</div>
+<!-- Receiver Message -->
+<div class="flex items-end gap-2 message-in">
+<img alt="Avatar" class="w-6 h-6 rounded-full object-cover mb-1" data-alt="A close up portrait photo of a young woman with a warm smile, set against a soft, bright, minimalist modern social media app background. The lighting is soft white and highly flattering. The color palette emphasizes clean whites and soft skin tones with a hint of vibrant modern blue in the background to match a high-velocity social exchange platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzyZ_PW4SPtc6K_vqJvNtBCdMZWZrmKN1qU1TLgRpZAxpZ7iWJMAsi7GzfrqHBj8cW-fPwroOw-pDVcmjvU5v9PuTfBwSZglxgVIvXU3eniRp3X1xhYisVRtEaZ4btpoUCwjUjUIaaJt5EzAKjuhkT2EKG3rTA_4OxGJXziuhXZT3BSnaNmV8KnO0RpfxnzUbS4wz87DqJNDaXLgd-WKfAslwb9olqILbAVrQukODK1jPYr5spBFGokSE2Ez15FNi6-Me2nL9W7SSL"/>
+<div class="bg-surface-container border border-outline-variant/20 text-on-surface px-4 py-2.5 rounded-2xl rounded-bl-sm max-w-[80%]">
+<p class="font-body-sm text-[15px]">Hey! Is the vintage camera still available for swap?</p>
+</div>
+</div>
+<!-- Sender Message -->
+<div class="flex items-end justify-end gap-2 message-in" style="animation-delay: 0.1s;">
+<div class="bg-primary text-on-primary px-4 py-2.5 rounded-2xl rounded-br-sm max-w-[80%] shadow-sm">
+<p class="font-body-sm text-[15px]">Hi Elena! Yes it is. The vinyls look great, what condition are they in?</p>
+</div>
+</div>
+</main>
+<!-- Chat Input Area -->
+<footer class="flex-shrink-0 bg-surface border-t border-outline-variant/30 p-3 pb-safe">
+<div class="flex items-end gap-2">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors flex-shrink-0 mb-1">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<div class="flex-1 bg-surface-container-low border border-outline-variant/50 rounded-[20px] px-4 py-2.5 flex items-center min-h-[44px]">
+<textarea class="w-full bg-transparent border-none outline-none font-body-sm text-[15px] text-on-surface placeholder-on-surface-variant/70 resize-none max-h-24 p-0 focus:ring-0" placeholder="Message..." rows="1"></textarea>
+</div>
+<button class="p-2.5 bg-primary text-on-primary rounded-full transition-colors flex-shrink-0 hover:scale-105 active:scale-95 shadow-sm mb-0.5">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</footer>
+</div>
+<script>
+        function openChat() {
+            document.getElementById('chat-screen').classList.remove('translate-x-full');
+        }
+
+        function closeChat() {
+            document.getElementById('chat-screen').classList.add('translate-x-full');
+        }
+    </script>
+<script>
+(function(){
+  var P = {
+    feed:    '../swapfuser_social_feed_mobile/code.html',
+    map:     '../swapfuser_map_mobile/code.html',
+    profile: '../swapfuser_profile_mobile/code.html'
+  };
+  function navLabel(el){
+    var s = el.querySelector('.font-label-caps');
+    return s ? s.textContent.trim().toLowerCase() : '';
+  }
+  // Wire bottom nav (first nav element, outside chat screen)
+  var firstNav = document.querySelector('nav.fixed.bottom-0');
+  if(firstNav){
+    firstNav.querySelectorAll('button').forEach(function(btn){
+      var l = navLabel(btn);
+      if(l==='feed')    btn.addEventListener('click',function(){ location.href=P.feed; });
+      else if(l==='map')     btn.addEventListener('click',function(){ location.href=P.map; });
+      else if(l==='profile') btn.addEventListener('click',function(){ location.href=P.profile; });
+    });
+  }
+})();
+</script>
+</body></html>

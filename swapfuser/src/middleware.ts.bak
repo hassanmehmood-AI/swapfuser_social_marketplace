@@ -1,0 +1,2 @@
+// Deprecated: Next.js 16 uses proxy.ts — see src/proxy.ts
+export {};
