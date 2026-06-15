@@ -24,6 +24,8 @@ export function UnreadCountProvider({ children }: { children: React.ReactNode })
   useEffect(() => {
     if (!user) { setCount(0); return; }
 
+    const userId = user.id;
+
     async function fetchUnread() {
       let lastChecked = localStorage.getItem("messages_last_checked");
       if (!lastChecked) {
@@ -34,7 +36,7 @@ export function UnreadCountProvider({ children }: { children: React.ReactNode })
       const { data: participantRows } = await supabase
         .from("participants")
         .select("conversation_id")
-        .eq("user_id", user.id);
+        .eq("user_id", userId);
 
       if (!participantRows || participantRows.length === 0) { setCount(0); return; }
 
@@ -44,7 +46,7 @@ export function UnreadCountProvider({ children }: { children: React.ReactNode })
         .from("messages")
         .select("*", { count: "exact", head: true })
         .in("conversation_id", [...myConvIds.current])
-        .neq("sender_id", user.id)
+        .neq("sender_id", userId)
         .gt("created_at", lastChecked);
 
       setCount(unread ?? 0);
@@ -54,10 +56,10 @@ export function UnreadCountProvider({ children }: { children: React.ReactNode })
 
     // Single realtime channel — runs once per session, not per component
     const channel = supabase
-      .channel(`unread-${user.id}`)
+      .channel(`unread-${userId}`)
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, (payload) => {
         const msg = payload.new as { sender_id: string; conversation_id: string };
-        if (msg.sender_id !== user.id && myConvIds.current.has(msg.conversation_id)) {
+        if (msg.sender_id !== userId && myConvIds.current.has(msg.conversation_id)) {
           setCount(c => c + 1);
         }
       })
