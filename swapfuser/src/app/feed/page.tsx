@@ -228,7 +228,6 @@ function FeedPageInner() {
             {([
               { id: "all" as Filter,  label: "All",      count: allPosts.length },
               { id: "swap" as Filter, label: "Swaps",    count: swapCount },
-              { id: "sell" as Filter, label: "For Sale", count: sellCount },
             ]).map(({ id, label, count }) => (
               <button
                 key={id}
@@ -238,9 +237,7 @@ function FeedPageInner() {
               >
                 {label}
                 {!loading && count > 0 && (
-                  <span className={`font-label-caps text-label-caps px-1.5 py-0.5 rounded-full text-[10px] ${filter === id ? "bg-primary/10 text-primary" : "bg-surface-container text-on-surface-variant"}`}>
-                    {count}
-                  </span>
+                  <></>
                 )}
                 {filter === id && <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-primary rounded-full" />}
               </button>

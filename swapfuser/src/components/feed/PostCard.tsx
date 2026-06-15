@@ -44,6 +44,7 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
   const [likeCount, setLikeCount] = useState(post.likes);
   const [saved, setSaved] = useState(initialSaved);
   const [imgIndex, setImgIndex] = useState(0);
+  const [startingConvo, setStartingConvo] = useState(false);
   const touchStartX = useRef(0);
 
   const images = post.images;
@@ -94,6 +95,43 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (diff > 50) setImgIndex(i => (i + 1) % images.length);
     else if (diff < -50) setImgIndex(i => (i - 1 + images.length) % images.length);
+  }
+
+  async function handleMessage(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!user) { router.push("/login"); return; }
+    if (user.id === post.author.id) { toast("You cannot message yourself."); return; }
+
+    setStartingConvo(true);
+    try {
+      let convId: string | null = null;
+      const { data: myRows } = await supabase.from("participants").select("conversation_id").eq("user_id", user.id);
+      
+      if (myRows && myRows.length > 0) {
+        const myConvIds = myRows.map(r => r.conversation_id as string);
+        const { data: shared } = await supabase.from("participants").select("conversation_id").eq("user_id", post.author.id).in("conversation_id", myConvIds).limit(1);
+        if (shared && shared.length > 0) convId = shared[0].conversation_id as string;
+      }
+
+      if (!convId) {
+        const { data: newConvo, error: convoErr } = await supabase.from("conversations").insert({}).select("id").single();
+        if (convoErr || !newConvo) { toast("Couldn't create conversation."); return; }
+        convId = newConvo.id as string;
+
+        const { error: partErr } = await supabase.from("participants").insert([
+          { conversation_id: convId, user_id: user.id },
+          { conversation_id: convId, user_id: post.author.id },
+        ]);
+        if (partErr) { toast("Couldn't add participants."); return; }
+      }
+
+      router.push(`/messages/${convId}`);
+    } catch {
+      toast("Something went wrong.");
+    } finally {
+      setStartingConvo(false);
+    }
   }
 
   const delay = `${index * 80}ms`;
@@ -207,6 +245,20 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
                   <span className="material-symbols-outlined text-[20px]" style={saved ? { fontVariationSettings: "'FILL' 1" } : undefined}>bookmark</span>
                 </span>
               </button>
+
+              <button
+                onClick={handleMessage} disabled={startingConvo} aria-label="Message"
+                className="flex items-center gap-1.5 transition-colors group/btn rounded-full focus-visible:ring-2 focus-visible:ring-primary text-on-surface-variant hover:text-primary disabled:opacity-60 ml-auto"
+              >
+                <span className="p-1.5 rounded-full group-hover/btn:bg-primary/10 transition-colors flex">
+                  {startingConvo ? (
+                    <span className="w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                  ) : (
+                    <span className="material-symbols-outlined text-[20px]">chat_bubble</span>
+                  )}
+                </span>
+                <span className="font-body-sm text-body-sm">Message</span>
+              </button>
             </div>
           </div>
         </div>
@@ -283,6 +335,15 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
           <button onClick={toggleSave} aria-label={saved ? "Remove bookmark" : "Save"} aria-pressed={saved}
             className={`p-1.5 transition-colors ${saved ? "text-primary" : "text-on-surface-variant hover:text-primary"}`}>
             <span className="material-symbols-outlined" style={saved ? { fontVariationSettings: "'FILL' 1" } : undefined}>bookmark</span>
+          </button>
+
+          <button onClick={handleMessage} disabled={startingConvo} aria-label="Message"
+            className="flex items-center gap-1 p-1.5 transition-colors text-on-surface-variant hover:text-primary disabled:opacity-60 ml-auto">
+            {startingConvo ? (
+              <span className="w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+            ) : (
+              <span className="material-symbols-outlined text-[22px]">chat_bubble</span>
+            )}
           </button>
         </div>
       </article>
