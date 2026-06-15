@@ -369,7 +369,7 @@ export default function ProfilePage() {
 
             {/* Stats */}
             <div className="flex gap-6 pb-4">
-              {[{ label: "Listings", value: listings.length }, { label: "Followers", value: followerCount }, { label: "Following", value: followingCount }].map((s) => (
+              {[{ label: "Listings", value: listings.length }].map((s) => (
                 <div key={s.label} className="flex flex-col items-center">
                   <span className="font-username-sm text-username-sm text-on-surface">{s.value.toLocaleString()}</span>
                   <span className="font-body-sm text-body-sm text-on-surface-variant">{s.label}</span>
