@@ -27,14 +27,22 @@ interface ProfileData {
 
 function getEmbedUrl(url: string): string | null {
   try {
-    const u = new URL(url);
-    if (u.hostname.includes("youtube.com")) {
-      const id = u.searchParams.get("v");
-      if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
-    }
+    const u = new URL(url.trim());
+    const isYT = u.hostname.includes("youtube.com") || u.hostname.includes("youtu.be");
+    if (!isYT) return null;
+
+    // youtu.be/ID
     if (u.hostname === "youtu.be") {
       const id = u.pathname.slice(1).split("?")[0];
       if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+    }
+    // /watch?v=ID
+    const v = u.searchParams.get("v");
+    if (v) return `https://www.youtube.com/embed/${v}?rel=0`;
+    // /shorts/ID  or  /live/ID  or  /embed/ID
+    const seg = u.pathname.split("/").filter(Boolean);
+    if (seg.length >= 2 && ["shorts", "live", "embed"].includes(seg[0])) {
+      return `https://www.youtube.com/embed/${seg[1]}?rel=0`;
     }
     return null;
   } catch {
@@ -434,6 +442,46 @@ export default function ProfilePage() {
               ))}
             </div>
 
+            {/* About Me Video */}
+            {(profile?.video_url || isOwnProfile) && (
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-username-sm text-username-sm text-on-surface flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-secondary text-[18px]">play_circle</span>
+                    About Me
+                  </h3>
+                  {isOwnProfile && (
+                    <button onClick={() => setEditOpen(true)} className="text-on-surface-variant hover:text-primary transition-colors" aria-label={profile?.video_url ? "Edit video" : "Add video"}>
+                      <span className="material-symbols-outlined text-[18px]">{profile?.video_url ? "edit" : "add"}</span>
+                    </button>
+                  )}
+                </div>
+                {profile?.video_url && getEmbedUrl(profile.video_url) ? (
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black max-w-sm">
+                    <iframe
+                      src={getEmbedUrl(profile.video_url)!}
+                      className="absolute inset-0 w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      title="About Me"
+                    />
+                  </div>
+                ) : profile?.video_url ? (
+                  <a href={profile.video_url} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary font-body-sm text-body-sm hover:underline">
+                    <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                    Watch video
+                  </a>
+                ) : isOwnProfile ? (
+                  <button onClick={() => setEditOpen(true)}
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-dashed border-outline-variant/50 text-on-surface-variant hover:border-primary hover:text-primary transition-colors font-body-sm text-body-sm">
+                    <span className="material-symbols-outlined text-[16px]">video_call</span>
+                    Add intro video
+                  </button>
+                ) : null}
+              </div>
+            )}
+
             {/* Tabs */}
             <div className="flex overflow-x-auto hide-scrollbar border-b border-outline-variant/30 -mb-px">
               {tabs.map((tab) => (
@@ -450,54 +498,6 @@ export default function ProfilePage() {
               ))}
             </div>
           </div>
-
-          {/* About Me Video */}
-          {(profile?.video_url || isOwnProfile) && (
-            <div className="px-4 lg:px-6 mt-4">
-              <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden max-w-sm lg:max-w-lg">
-                {/* Header */}
-                <div className="flex items-center justify-between px-4 py-3 lg:px-5 border-b border-outline-variant/20">
-                  <h3 className="font-username-sm text-username-sm text-on-surface flex items-center gap-2">
-                    <span className="material-symbols-outlined text-secondary text-[18px] lg:text-[20px]">play_circle</span>
-                    About Me
-                  </h3>
-                  {isOwnProfile && (
-                    <button
-                      onClick={() => setEditOpen(true)}
-                      className="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container"
-                      aria-label={profile?.video_url ? "Edit video" : "Add video"}
-                    >
-                      <span className="material-symbols-outlined text-[20px]">{profile?.video_url ? "edit" : "add"}</span>
-                    </button>
-                  )}
-                </div>
-
-                {/* Video or placeholder */}
-                {profile?.video_url && getEmbedUrl(profile.video_url) ? (
-                  <div className="relative w-full aspect-video bg-black">
-                    <iframe
-                      src={getEmbedUrl(profile.video_url)!}
-                      className="absolute inset-0 w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      title="About Me"
-                    />
-                  </div>
-                ) : isOwnProfile ? (
-                  <button
-                    onClick={() => setEditOpen(true)}
-                    className="w-full flex flex-col items-center justify-center gap-3 text-on-surface-variant hover:bg-surface-container transition-colors py-10 lg:py-16"
-                  >
-                    <span className="material-symbols-outlined text-[40px] lg:text-[56px] opacity-40">video_call</span>
-                    <div className="text-center">
-                      <p className="font-username-sm text-username-sm">Add an intro video</p>
-                      <p className="font-body-sm text-body-sm opacity-70 mt-0.5">Paste a YouTube link in Edit Profile</p>
-                    </div>
-                  </button>
-                ) : null}
-              </div>
-            </div>
-          )}
 
           {/* Tab Content */}
           <div className="p-4 lg:p-6">

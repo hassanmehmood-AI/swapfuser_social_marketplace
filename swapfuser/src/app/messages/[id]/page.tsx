@@ -277,8 +277,6 @@ export default function ChatPage() {
               </div>
             </div>
             <div className="flex gap-2">
-              <button className="p-2 text-primary hover:bg-primary-fixed rounded-full transition-colors"><span className="material-symbols-outlined">call</span></button>
-              <button className="p-2 text-primary hover:bg-primary-fixed rounded-full transition-colors"><span className="material-symbols-outlined">videocam</span></button>
               <button className="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors"><span className="material-symbols-outlined">more_vert</span></button>
             </div>
           </div>
