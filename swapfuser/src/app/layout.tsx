@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import { UnreadCountProvider } from "@/contexts/UnreadCountContext";
 import "./globals.css";
 
 const geist = Geist({
@@ -37,7 +38,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-background text-on-background antialiased">
-        {children}
+        <UnreadCountProvider>
+          {children}
+        </UnreadCountProvider>
         <Toaster
           position="bottom-center"
           toastOptions={{

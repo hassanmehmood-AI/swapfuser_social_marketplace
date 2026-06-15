@@ -12,7 +12,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
-type Tab = "listings" | "sold";
+type Tab = "listings" | "sold" | "saved";
 
 interface ProfileData {
   id: string;
@@ -22,6 +22,24 @@ interface ProfileData {
   cover_url: string | null;
   bio: string | null;
   location: string | null;
+  video_url: string | null;
+}
+
+function getEmbedUrl(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtube.com")) {
+      const id = u.searchParams.get("v");
+      if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+    }
+    if (u.hostname === "youtu.be") {
+      const id = u.pathname.slice(1).split("?")[0];
+      if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 interface PostItem {
@@ -48,6 +66,8 @@ export default function ProfilePage() {
   const [followingCount, setFollowingCount] = useState(0);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [savedPosts, setSavedPosts] = useState<PostItem[]>([]);
+  const [loadingSaved, setLoadingSaved] = useState(false);
 
   const isOwnProfile = !!(authUser && profile && authUser.id === profile.id);
 
@@ -79,6 +99,7 @@ export default function ProfilePage() {
           cover_url: (prof as any).cover_url ?? null,
           bio: prof.bio,
           location: prof.location,
+          video_url: (prof as any).video_url ?? null,
         });
 
         const [{ data: activePosts }, { data: soldPosts }] = await Promise.all([
@@ -122,6 +143,42 @@ export default function ProfilePage() {
     }
     load();
   }, [username]);
+
+  useEffect(() => {
+    if (!authUser || !profile || authUser.id !== profile.id) return;
+    setLoadingSaved(true);
+
+    async function fetchSaved() {
+      const { data: saveRows } = await supabase
+        .from("saves")
+        .select("post_id")
+        .eq("user_id", authUser!.id)
+        .order("created_at", { ascending: false });
+
+      if (!saveRows || saveRows.length === 0) { setSavedPosts([]); setLoadingSaved(false); return; }
+
+      const postIds = saveRows.map(r => r.post_id as string);
+      const { data: posts } = await supabase
+        .from("posts")
+        .select("id, title, images, type, price, condition")
+        .in("id", postIds);
+
+      setSavedPosts(
+        (posts ?? []).map(p => ({
+          id: p.id,
+          title: p.title,
+          images: (p.images as string[]) ?? [],
+          type: p.type as "sell" | "swap",
+          price: p.price,
+          likes: 0,
+          condition: p.condition,
+        }))
+      );
+      setLoadingSaved(false);
+    }
+
+    fetchSaved();
+  }, [authUser, profile]);
 
   async function handleDelete(postId: string) {
     const { error } = await supabase.from("posts").delete().eq("id", postId).eq("user_id", authUser!.id);
@@ -197,6 +254,7 @@ export default function ProfilePage() {
   const tabs: { id: Tab; label: string }[] = [
     { id: "listings", label: "Active Listings" },
     { id: "sold", label: "Sold" },
+    ...(isOwnProfile ? [{ id: "saved" as Tab, label: "Saved" }] : []),
   ];
 
   const displayName = profile?.full_name || profile?.username || username;
@@ -356,7 +414,6 @@ export default function ProfilePage() {
               <div className="flex items-center gap-2">
                 <h1 className="font-headline-md-mobile text-headline-md-mobile text-on-surface">{displayName}</h1>
               </div>
-              <p className="font-body-sm text-body-sm text-on-surface-variant">@{profile?.username ?? username}</p>
             </div>
 
             {profile?.bio && <p className="font-body-md text-body-md text-on-surface mb-3 max-w-xl">{profile.bio}</p>}
@@ -386,10 +443,61 @@ export default function ProfilePage() {
                   {tab.id === "sold" && soldListings.length > 0 && (
                     <span className="ml-1.5 text-[11px] bg-secondary/10 text-secondary px-1.5 py-0.5 rounded-full font-label-caps">{soldListings.length}</span>
                   )}
+                  {tab.id === "saved" && savedPosts.length > 0 && (
+                    <span className="ml-1.5 text-[11px] bg-primary/10 text-primary px-1.5 py-0.5 rounded-full font-label-caps">{savedPosts.length}</span>
+                  )}
                 </button>
               ))}
             </div>
           </div>
+
+          {/* About Me Video */}
+          {(profile?.video_url || isOwnProfile) && (
+            <div className="px-4 lg:px-6 mt-4">
+              <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden max-w-sm lg:max-w-lg">
+                {/* Header */}
+                <div className="flex items-center justify-between px-4 py-3 lg:px-5 border-b border-outline-variant/20">
+                  <h3 className="font-username-sm text-username-sm text-on-surface flex items-center gap-2">
+                    <span className="material-symbols-outlined text-secondary text-[18px] lg:text-[20px]">play_circle</span>
+                    About Me
+                  </h3>
+                  {isOwnProfile && (
+                    <button
+                      onClick={() => setEditOpen(true)}
+                      className="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container"
+                      aria-label={profile?.video_url ? "Edit video" : "Add video"}
+                    >
+                      <span className="material-symbols-outlined text-[20px]">{profile?.video_url ? "edit" : "add"}</span>
+                    </button>
+                  )}
+                </div>
+
+                {/* Video or placeholder */}
+                {profile?.video_url && getEmbedUrl(profile.video_url) ? (
+                  <div className="relative w-full aspect-video bg-black">
+                    <iframe
+                      src={getEmbedUrl(profile.video_url)!}
+                      className="absolute inset-0 w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      title="About Me"
+                    />
+                  </div>
+                ) : isOwnProfile ? (
+                  <button
+                    onClick={() => setEditOpen(true)}
+                    className="w-full flex flex-col items-center justify-center gap-3 text-on-surface-variant hover:bg-surface-container transition-colors py-10 lg:py-16"
+                  >
+                    <span className="material-symbols-outlined text-[40px] lg:text-[56px] opacity-40">video_call</span>
+                    <div className="text-center">
+                      <p className="font-username-sm text-username-sm">Add an intro video</p>
+                      <p className="font-body-sm text-body-sm opacity-70 mt-0.5">Paste a YouTube link in Edit Profile</p>
+                    </div>
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          )}
 
           {/* Tab Content */}
           <div className="p-4 lg:p-6">
@@ -420,6 +528,43 @@ export default function ProfilePage() {
                 <PostGrid posts={soldListings} isSold />
               )
             )}
+
+            {activeTab === "saved" && (
+              loadingSaved ? (
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="rounded-xl bg-surface-container-high animate-pulse aspect-square" />
+                  ))}
+                </div>
+              ) : savedPosts.length === 0 ? (
+                <EmptyState icon="bookmark" title="No saved posts yet" body="Tap the bookmark icon on any post to save it here." />
+              ) : (
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 animate-fade-in">
+                  {savedPosts.map((post) => (
+                    <article key={post.id} className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group">
+                      <div className="aspect-square overflow-hidden bg-surface-container">
+                        {post.images[0] ? (
+                          <img src={post.images[0]} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-on-surface-variant/30">
+                            <span className="material-symbols-outlined text-[48px]">image</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-3">
+                        <p className="font-body-sm text-body-sm text-on-surface line-clamp-2 mb-2">{post.title}</p>
+                        <div className="flex items-center justify-between">
+                          <span className={`font-label-caps text-label-caps px-2 py-0.5 rounded-full ${post.type === "sell" ? "bg-primary/10 text-primary" : "bg-secondary/10 text-secondary"}`}>
+                            {post.type === "sell" ? (post.price ? `$${post.price}` : "For Sale") : "Swap"}
+                          </span>
+                          <span className="material-symbols-outlined text-[16px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>bookmark</span>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )
+            )}
           </div>
         </main>
       </div>
@@ -429,7 +574,7 @@ export default function ProfilePage() {
         <EditProfileModal
           open={editOpen}
           onClose={() => setEditOpen(false)}
-          profile={{ ...profile, cover_url: profile.cover_url ?? null }}
+          profile={{ ...profile, cover_url: profile.cover_url ?? null, video_url: profile.video_url ?? null }}
           onSaved={(updates) => setProfile((prev) => (prev ? { ...prev, ...updates } : prev))}
         />
       )}

@@ -3,18 +3,20 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { useUnreadCount } from "@/hooks/useUnreadCount";
 
 export default function Sidebar() {
   const router = useRouter();
   const { profile } = useAuth();
+  const unreadCount = useUnreadCount();
 
   const profileHref = profile?.username ? `/profile/${profile.username}` : "/login";
 
   const NAV_ITEMS = [
-    { href: "/feed", label: "Feed", icon: "dynamic_feed" },
-    { href: "/map", label: "Map", icon: "explore" },
-    { href: "/messages", label: "Inbox", icon: "mail" },
-    { href: profileHref, label: "Profile", icon: "person" },
+    { href: "/feed",       label: "Feed",    icon: "dynamic_feed" },
+    { href: "/map",        label: "Map",     icon: "explore" },
+    { href: "/messages",   label: "Inbox",   icon: "mail" },
+    { href: profileHref,   label: "Profile", icon: "person" },
   ];
 
   return (
@@ -26,7 +28,14 @@ export default function Sidebar() {
             href={item.href}
             className="flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant hover:bg-primary-container/10 hover:text-primary"
           >
-            <span className="material-symbols-outlined">{item.icon}</span>
+            <div className="relative">
+              <span className="material-symbols-outlined">{item.icon}</span>
+              {item.label === "Inbox" && unreadCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-error text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 leading-none">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
+              )}
+            </div>
             <span className="font-username-sm text-username-sm">{item.label}</span>
           </Link>
         ))}
@@ -49,4 +58,3 @@ export default function Sidebar() {
     </nav>
   );
 }
-

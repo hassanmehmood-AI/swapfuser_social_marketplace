@@ -14,6 +14,7 @@ export interface ProfileSnapshot {
   cover_url: string | null;
   bio: string | null;
   location: string | null;
+  video_url: string | null;
 }
 
 interface EditProfileModalProps {
@@ -27,6 +28,7 @@ export function EditProfileModal({ open, onClose, profile, onSaved }: EditProfil
   const [fullName, setFullName] = useState(profile.full_name ?? "");
   const [bio, setBio] = useState(profile.bio ?? "");
   const [location, setLocation] = useState(profile.location ?? "");
+  const [videoUrl, setVideoUrl] = useState(profile.video_url ?? "");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(profile.avatar_url);
   const [avatarCleared, setAvatarCleared] = useState(false);
@@ -49,6 +51,7 @@ export function EditProfileModal({ open, onClose, profile, onSaved }: EditProfil
       setCoverPreview(profile.cover_url);
       setCoverFile(null);
       setCoverCleared(false);
+      setVideoUrl(profile.video_url ?? "");
     }
   }, [open, profile]);
 
@@ -99,6 +102,7 @@ export function EditProfileModal({ open, onClose, profile, onSaved }: EditProfil
         full_name: fullName.trim() || null,
         bio: bio.trim() || null,
         location: location.trim() || null,
+        video_url: videoUrl.trim() || null,
       };
 
       if (avatarFile) {
@@ -124,6 +128,7 @@ export function EditProfileModal({ open, onClose, profile, onSaved }: EditProfil
         full_name: updates.full_name,
         bio: updates.bio,
         location: updates.location,
+        video_url: updates.video_url,
         ...("avatar_url" in updates ? { avatar_url: updates.avatar_url } : {}),
       };
 
@@ -274,6 +279,18 @@ export function EditProfileModal({ open, onClose, profile, onSaved }: EditProfil
           icon="location_on"
           maxLength={80}
         />
+        <div>
+          <Input
+            label="About Me Video (YouTube URL)"
+            value={videoUrl}
+            onChange={(e) => setVideoUrl(e.target.value)}
+            placeholder="https://www.youtube.com/watch?v=..."
+            icon="play_circle"
+          />
+          <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 pl-1">
+            Paste a YouTube link — it will be embedded on your profile.
+          </p>
+        </div>
       </div>
 
       {/* Actions */}

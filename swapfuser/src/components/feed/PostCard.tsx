@@ -161,7 +161,7 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
                 <span className="material-symbols-outlined text-primary text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }} aria-label="Verified">verified</span>
               )}
               <span className="font-body-sm text-body-sm text-on-surface-variant">
-                @{post.author.username} · {post.time}
+                {post.time}
               </span>
               {post.condition && (
                 <span className={`font-label-caps text-label-caps px-2 py-0.5 rounded-full ${CONDITION_STYLES[post.condition] ?? ""}`}>
