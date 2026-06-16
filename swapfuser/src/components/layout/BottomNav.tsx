@@ -5,8 +5,11 @@ import { useAuth } from "@/hooks/useAuth";
 import { useUnreadCount } from "@/hooks/useUnreadCount";
 
 export default function BottomNav() {
-  const { profile } = useAuth();
+  const { user, profile } = useAuth();
   const unreadCount = useUnreadCount();
+
+  // Don't show the nav bar on public / unauthenticated pages (e.g. landing)
+  if (!user) return null;
 
   const profileHref = profile?.username ? `/profile/${profile.username}` : "/login";
 
