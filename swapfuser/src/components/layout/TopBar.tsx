@@ -111,7 +111,7 @@ export default function TopBar({ hideSearch }: { hideSearch?: boolean } = {}) {
     <header className="bg-surface/90 backdrop-blur-xl sticky top-0 z-50 border-b border-outline-variant/30 flex justify-between items-center w-full px-4 md:px-6 h-16 max-w-container-max mx-auto">
       {/* Logo */}
       <Link href="/feed" className="flex items-center gap-2 pr-4">
-        <img src="/logo.png" alt="SwapFuser Logo" className="object-contain" style={{ width: "80px", height: "80px" }} />
+
         <span className="font-display-lg text-[1.25rem] font-bold hidden sm:block tracking-tight">
           <span className="text-[#3B82F6]">Swap</span><span className="text-[#A855F7]">Fuser</span>
         </span>
