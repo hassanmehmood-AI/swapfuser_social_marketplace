@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import Script from "next/script";
 import { UnreadCountProvider } from "@/contexts/UnreadCountContext";
 import "./globals.css";
 
@@ -37,6 +38,18 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+        `}
+      </Script>
       <body className="min-h-screen bg-background text-on-background antialiased">
         <UnreadCountProvider>
           {children}
