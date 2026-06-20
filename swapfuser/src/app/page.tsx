@@ -45,17 +45,17 @@ const FOOTER_COLUMNS = [
   {
     title: "Company",
     links: [
-      { label: "About", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Community", href: "#" },
+      { label: "About", href: "/about" },
+      { label: "Careers", href: "/careers" },
+      { label: "Community", href: "/community" },
     ],
   },
   {
     title: "Support",
     links: [
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-      { label: "Help Center", href: "#" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms of Service", href: "/terms-of-service" },
+      { label: "Help Center", href: "/help-center" },
     ],
   },
 ];
@@ -212,18 +212,10 @@ export default function RootPage() {
             ))}
           </div>
 
-          <div className="border-t border-outline-variant/30 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="border-t border-outline-variant/30 pt-6 text-center">
             <p className="font-body-sm text-body-sm text-on-surface-variant">
-              © 2024 SwapFuser. All rights reserved.
+              © 2026 SwapFuser. All rights reserved.
             </p>
-            <a
-              href="https://neutrontech.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-body-sm text-body-sm text-on-surface-variant hover:underline"
-            >
-              Neutron Tech Swap Fuser
-            </a>
           </div>
         </div>
       </footer>
