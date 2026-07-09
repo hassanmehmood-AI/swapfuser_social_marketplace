@@ -221,6 +221,24 @@ export default function TopBar({ hideSearch }: { hideSearch?: boolean } = {}) {
                         <span className="material-symbols-outlined text-[20px]">add_circle</span>
                         Create Post
                       </Link>
+                      {profile?.is_admin && (
+                        <Link
+                          href="/admin"
+                          onClick={() => setShowUserMenu(false)}
+                          className="flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors font-body-sm text-body-sm text-on-surface"
+                        >
+                          <span className="material-symbols-outlined text-[20px]">shield_person</span>
+                          Admin Console
+                        </Link>
+                      )}
+                      <Link
+                        href="/contact"
+                        onClick={() => setShowUserMenu(false)}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors font-body-sm text-body-sm text-on-surface"
+                      >
+                        <span className="material-symbols-outlined text-[20px]">support_agent</span>
+                        Contact Us
+                      </Link>
                       <div className="border-t border-outline-variant/20 my-1" />
                       <button
                         onClick={handleSignOut}

@@ -50,11 +50,14 @@ export default function Sidebar() {
         Create Post
       </button>
 
-      {/* Mission Slogan Widget */}
-      <div className="mt-auto mb-8 p-4 bg-surface-container-low rounded-xl border border-outline-variant/20">
-        <p className="font-label-caps text-label-caps text-on-surface-variant mb-1">Our Mission</p>
-        <p className="font-username-sm text-username-sm text-primary">Buy, Sell, Swap Socially.</p>
-      </div>
+      {/* Contact Us */}
+      <Link
+        href="/contact"
+        className="mt-auto mb-8 flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant hover:bg-primary-container/10 hover:text-primary"
+      >
+        <span className="material-symbols-outlined">support_agent</span>
+        <span className="font-username-sm text-username-sm">Contact Us</span>
+      </Link>
     </nav>
   );
 }

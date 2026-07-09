@@ -11,6 +11,8 @@ export interface AuthProfile {
   avatar_url: string | null;
   bio: string | null;
   location: string | null;
+  is_admin: boolean;
+  is_super_admin: boolean;
 }
 
 export function useAuth() {

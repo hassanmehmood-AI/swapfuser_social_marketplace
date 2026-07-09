@@ -8,6 +8,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import BottomNav from "@/components/layout/BottomNav";
 import EmptyState from "@/components/ui/EmptyState";
 import { EditProfileModal } from "@/components/profile/EditProfileModal";
+import { PostDetailModal } from "@/components/feed/PostDetailModal";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -58,6 +59,7 @@ interface PostItem {
   price: number | null;
   likes: number;
   condition: string | null;
+  isLiked: boolean;
 }
 
 export default function ProfilePage() {
@@ -76,6 +78,7 @@ export default function ProfilePage() {
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [savedPosts, setSavedPosts] = useState<PostItem[]>([]);
   const [loadingSaved, setLoadingSaved] = useState(false);
+  const [viewPostId, setViewPostId] = useState<string | null>(null);
 
   const isOwnProfile = !!(authUser && profile && authUser.id === profile.id);
 
@@ -125,14 +128,31 @@ export default function ProfilePage() {
             .order("created_at", { ascending: false }),
         ]);
 
+        const allPostIds = [...(activePosts ?? []), ...(soldPosts ?? [])].map((p) => p.id);
+        const { data: { user: currentUser } } = await supabase.auth.getUser();
+
+        const [likesRes, userLikesRes] = await Promise.all([
+          allPostIds.length
+            ? supabase.from("likes").select("post_id").in("post_id", allPostIds)
+            : Promise.resolve({ data: [] as { post_id: string }[] }),
+          currentUser && allPostIds.length
+            ? supabase.from("likes").select("post_id").eq("user_id", currentUser.id).in("post_id", allPostIds)
+            : Promise.resolve({ data: [] as { post_id: string }[] }),
+        ]);
+
+        const likeCountMap: Record<string, number> = {};
+        likesRes.data?.forEach((l) => { likeCountMap[l.post_id] = (likeCountMap[l.post_id] ?? 0) + 1; });
+        const likedSet = new Set<string>(userLikesRes.data?.map((l) => l.post_id) ?? []);
+
         const mapPost = (p: { id: string; title: string; images: string[] | null; type: string; price: number | null; condition: string | null }) => ({
           id: p.id,
           title: p.title,
           images: p.images ?? [],
           type: p.type as "sell" | "swap",
           price: p.price,
-          likes: 0,
+          likes: likeCountMap[p.id] ?? 0,
           condition: p.condition,
+          isLiked: likedSet.has(p.id),
         });
 
         setListings((activePosts ?? []).map(mapPost));
@@ -180,6 +200,7 @@ export default function ProfilePage() {
           price: p.price,
           likes: 0,
           condition: p.condition,
+          isLiked: false,
         }))
       );
       setLoadingSaved(false);
@@ -187,6 +208,30 @@ export default function ProfilePage() {
 
     fetchSaved();
   }, [authUser, profile]);
+
+  async function toggleLike(postId: string) {
+    if (!authUser) { router.push("/login"); return; }
+
+    const inActive = listings.some(p => p.id === postId);
+    const current = inActive ? listings.find(p => p.id === postId) : soldListings.find(p => p.id === postId);
+    if (!current) return;
+    const next = !current.isLiked;
+
+    const apply = (liked: boolean) => (arr: PostItem[]) =>
+      arr.map(p => p.id === postId ? { ...p, isLiked: liked, likes: liked ? p.likes + 1 : p.likes - 1 } : p);
+
+    const setArr = inActive ? setListings : setSoldListings;
+    setArr(apply(next));
+
+    const { error } = next
+      ? await supabase.from("likes").insert({ user_id: authUser.id, post_id: postId })
+      : await supabase.from("likes").delete().eq("user_id", authUser.id).eq("post_id", postId);
+
+    if (error) {
+      setArr(apply(!next));
+      toast("Something went wrong, try again.");
+    }
+  }
 
   async function handleDelete(postId: string) {
     const { error } = await supabase.from("posts").delete().eq("id", postId).eq("user_id", authUser!.id);
@@ -290,7 +335,11 @@ export default function ProfilePage() {
     return (
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 animate-fade-in">
         {posts.map((post) => (
-          <article key={post.id} className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group relative">
+          <article
+            key={post.id}
+            onClick={() => setViewPostId(post.id)}
+            className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group relative"
+          >
             <div className="aspect-square overflow-hidden bg-surface-container relative">
               {post.images[0] ? (
                 <img src={post.images[0]} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
@@ -347,10 +396,15 @@ export default function ProfilePage() {
                 <span className={`font-label-caps text-label-caps px-2 py-0.5 rounded-full ${post.type === "sell" ? "bg-primary/10 text-primary" : "bg-secondary/10 text-secondary"}`}>
                   {post.type === "sell" ? (post.price ? `$${post.price}` : "For Sale") : "Swap"}
                 </span>
-                <div className="flex items-center gap-1 text-on-surface-variant">
-                  <span className="material-symbols-outlined text-[14px]">favorite</span>
+                <button
+                  onClick={(e) => { e.stopPropagation(); toggleLike(post.id); }}
+                  aria-label={post.isLiked ? "Unlike" : "Like"}
+                  aria-pressed={post.isLiked}
+                  className={`flex items-center gap-1 transition-colors ${post.isLiked ? "text-success-green" : "text-on-surface-variant hover:text-success-green"}`}
+                >
+                  <span className="material-symbols-outlined text-[14px]" style={post.isLiked ? { fontVariationSettings: "'FILL' 1" } : undefined}>favorite</span>
                   <span className="font-body-sm text-body-sm">{post.likes}</span>
-                </div>
+                </button>
               </div>
             </div>
           </article>
@@ -541,7 +595,11 @@ export default function ProfilePage() {
               ) : (
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 animate-fade-in">
                   {savedPosts.map((post) => (
-                    <article key={post.id} className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group">
+                    <article
+                      key={post.id}
+                      onClick={() => setViewPostId(post.id)}
+                      className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group"
+                    >
                       <div className="aspect-square overflow-hidden bg-surface-container">
                         {post.images[0] ? (
                           <img src={post.images[0]} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
@@ -578,6 +636,8 @@ export default function ProfilePage() {
           onSaved={(updates) => setProfile((prev) => (prev ? { ...prev, ...updates } : prev))}
         />
       )}
+
+      {viewPostId && <PostDetailModal postId={viewPostId} onClose={() => setViewPostId(null)} />}
     </div>
   );
 }

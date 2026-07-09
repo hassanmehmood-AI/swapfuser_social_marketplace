@@ -185,7 +185,7 @@ function FeedPageInner() {
 
   return (
     <div className="min-h-screen bg-surface text-on-surface font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
-      <TopBar />
+      <TopBar hideSearch />
 
       <div className="w-full max-w-container-max mx-auto flex justify-center min-h-screen">
         <Sidebar />
@@ -301,32 +301,6 @@ function FeedPageInner() {
             )}
           </div>
         </main>
-
-        {/* Right sidebar */}
-        <aside className="hidden xl:block w-80 ml-6 pl-6 pt-24 min-h-screen">
-          <div className="bg-surface-container-low rounded-2xl border border-outline-variant/30 p-4 mb-6">
-            <h2 className="font-headline-md text-headline-md text-on-surface mb-4">Trending Swaps</h2>
-            <div className="flex flex-col gap-4">
-              {[
-                { category: "Technology · Trending", tag: "#MechanicalKeyboards", count: "1,204 swaps" },
-                { category: "Fashion · Trending", tag: "Vintage Denim", count: "856 swaps" },
-                { category: "Local · Portland", tag: "House Plant Cuttings", count: "420 swaps" },
-              ].map((item) => (
-                <div key={item.tag} className="cursor-pointer group">
-                  <p className="font-label-caps text-label-caps text-on-surface-variant mb-0.5">{item.category}</p>
-                  <p className="font-username-sm text-username-sm text-on-surface group-hover:text-primary transition-colors">{item.tag}</p>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">{item.count}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-x-3 gap-y-1 px-2 font-body-sm text-body-sm text-on-surface-variant/70">
-            <a className="hover:underline" href="#">Terms</a>
-            <a className="hover:underline" href="#">Privacy Policy</a>
-            <a className="hover:underline" href="#">Cookie Policy</a>
-            <span>© 2024 SwapFuser.</span>
-          </div>
-        </aside>
       </div>
 
       <BottomNav />

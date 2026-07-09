@@ -11,6 +11,8 @@ export interface Database {
           avatar_url: string | null;
           bio: string | null;
           location: string | null;
+          is_admin: boolean;
+          is_super_admin: boolean;
           created_at: string;
         };
         Insert: {
@@ -20,6 +22,8 @@ export interface Database {
           avatar_url?: string | null;
           bio?: string | null;
           location?: string | null;
+          is_admin?: boolean;
+          is_super_admin?: boolean;
           created_at?: string;
         };
         Update: {
@@ -28,6 +32,8 @@ export interface Database {
           avatar_url?: string | null;
           bio?: string | null;
           location?: string | null;
+          is_admin?: boolean;
+          is_super_admin?: boolean;
         };
         Relationships: [];
       };
@@ -182,9 +188,82 @@ export interface Database {
         Update: { comment?: string | null };
         Relationships: [];
       };
+      contact_requests: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          message: string;
+          status: "new" | "resolved";
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          email: string;
+          message: string;
+          status?: "new" | "resolved";
+          created_at?: string;
+        };
+        Update: { status?: "new" | "resolved" };
+        Relationships: [];
+      };
+      app_settings: {
+        Row: {
+          id: number;
+          allow_signups: boolean;
+          post_approval_required: boolean;
+          public_profiles: boolean;
+          contact_form_enabled: boolean;
+          updated_at: string;
+        };
+        Insert: {
+          id?: number;
+          allow_signups?: boolean;
+          post_approval_required?: boolean;
+          public_profiles?: boolean;
+          contact_form_enabled?: boolean;
+          updated_at?: string;
+        };
+        Update: {
+          allow_signups?: boolean;
+          post_approval_required?: boolean;
+          public_profiles?: boolean;
+          contact_form_enabled?: boolean;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      admin_dashboard_stats: {
+        Args: Record<string, never>;
+        Returns: {
+          total_users: number;
+          active_users_7d: number;
+          total_posts: number;
+          open_contact_requests: number;
+        }[];
+      };
+      admin_list_users: {
+        Args: Record<string, never>;
+        Returns: {
+          id: string;
+          username: string;
+          full_name: string | null;
+          avatar_url: string | null;
+          is_admin: boolean;
+          is_super_admin: boolean;
+          created_at: string;
+          last_sign_in_at: string | null;
+        }[];
+      };
+      admin_activity_since: {
+        Args: { since: string };
+        Returns: { created_at: string; kind: "post" | "comment" | "signup" }[];
+      };
+    };
     Enums: Record<string, never>;
   };
 }

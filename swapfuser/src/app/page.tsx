@@ -56,6 +56,7 @@ const FOOTER_COLUMNS = [
       { label: "Privacy Policy", href: "/privacy-policy" },
       { label: "Terms of Service", href: "/terms-of-service" },
       { label: "Help Center", href: "/help-center" },
+      { label: "Contact Us", href: "/contact" },
     ],
   },
 ];

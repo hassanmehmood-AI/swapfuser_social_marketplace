@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import type { MockPost } from "@/lib/mockData";
+import { PostDetailModal } from "@/components/feed/PostDetailModal";
 
 interface PostCardProps {
   post: MockPost;
@@ -45,6 +46,7 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
   const [saved, setSaved] = useState(initialSaved);
   const [imgIndex, setImgIndex] = useState(0);
   const [startingConvo, setStartingConvo] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
   const touchStartX = useRef(0);
 
   const images = post.images;
@@ -140,13 +142,14 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
     <>
       {/* ── Desktop card ──────────────────────────────────────────────── */}
       <article
+        onClick={() => setDetailOpen(true)}
         className="hidden lg:block p-4 border-b border-outline-variant/30 bg-surface hover:bg-surface-container-lowest transition-colors cursor-pointer group animate-fade-in-up"
         style={{ animationDelay: delay, opacity: 0 }}
         aria-label={`Post by ${post.author.name}`}
       >
         <div className="flex gap-3">
           {/* Avatar */}
-          <Link href={`/profile/${post.author.username}`} className="flex-shrink-0">
+          <Link href={`/profile/${post.author.username}`} onClick={(e) => e.stopPropagation()} className="flex-shrink-0">
             <AuthorAvatar name={post.author.name} avatar={post.author.avatar} />
           </Link>
 
@@ -154,7 +157,7 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
           <div className="flex-1 min-w-0">
             {/* Header */}
             <div className="flex items-center gap-2 mb-1 flex-wrap">
-              <Link href={`/profile/${post.author.username}`}>
+              <Link href={`/profile/${post.author.username}`} onClick={(e) => e.stopPropagation()}>
                 <h3 className="font-username-sm text-username-sm text-on-surface hover:text-primary transition-colors">{post.author.name}</h3>
               </Link>
               {post.author.verified && (
@@ -228,7 +231,7 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
             {/* Interaction bar */}
             <div className="flex items-center gap-4 text-on-surface-variant">
               <button
-                onClick={toggleLike} aria-label={liked ? "Unlike" : "Like"} aria-pressed={liked}
+                onClick={(e) => { e.stopPropagation(); toggleLike(); }} aria-label={liked ? "Unlike" : "Like"} aria-pressed={liked}
                 className={`flex items-center gap-1.5 transition-colors group/btn rounded-full focus-visible:ring-2 focus-visible:ring-success-green ${liked ? "text-success-green" : "hover:text-success-green"}`}
               >
                 <span className="p-1.5 rounded-full group-hover/btn:bg-success-green/10 transition-colors flex">
@@ -238,7 +241,7 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
               </button>
 
               <button
-                onClick={toggleSave} aria-label={saved ? "Remove bookmark" : "Save"} aria-pressed={saved}
+                onClick={(e) => { e.stopPropagation(); toggleSave(); }} aria-label={saved ? "Remove bookmark" : "Save"} aria-pressed={saved}
                 className={`flex items-center gap-1.5 transition-colors group/btn rounded-full focus-visible:ring-2 focus-visible:ring-primary ${saved ? "text-primary" : "hover:text-primary"}`}
               >
                 <span className="p-1.5 rounded-full group-hover/btn:bg-primary/10 transition-colors flex">
@@ -266,18 +269,19 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
 
       {/* ── Mobile card ───────────────────────────────────────────────── */}
       <article
-        className="lg:hidden bg-surface-container-lowest border-b border-outline-variant/20 animate-fade-in-up"
+        onClick={() => setDetailOpen(true)}
+        className="lg:hidden bg-surface-container-lowest border-b border-outline-variant/20 animate-fade-in-up cursor-pointer"
         style={{ animationDelay: delay, opacity: 0 }}
         aria-label={`Post by ${post.author.name}`}
       >
         {/* Header */}
         <div className="flex items-center px-4 py-3">
-          <Link href={`/profile/${post.author.username}`} className="mr-3 flex-shrink-0">
+          <Link href={`/profile/${post.author.username}`} onClick={(e) => e.stopPropagation()} className="mr-3 flex-shrink-0">
             <AuthorAvatar name={post.author.name} avatar={post.author.avatar} size="sm" />
           </Link>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5">
-              <Link href={`/profile/${post.author.username}`}>
+              <Link href={`/profile/${post.author.username}`} onClick={(e) => e.stopPropagation()}>
                 <span className="font-username-sm text-username-sm text-on-surface truncate hover:text-primary transition-colors">{post.author.name}</span>
               </Link>
               {post.author.verified && (
@@ -288,9 +292,6 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
               {post.time} · {post.type === "swap" ? `Swap${post.lookingFor ? ` for ${post.lookingFor}` : ""}` : (post.price ?? "For Sale")}
             </span>
           </div>
-          <button aria-label="More options" className="ml-2 p-2 rounded-full hover:bg-surface-variant/50 text-on-surface-variant flex-shrink-0">
-            <span className="material-symbols-outlined">more_horiz</span>
-          </button>
         </div>
 
         {/* Caption + condition */}
@@ -326,13 +327,13 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
 
         {/* Actions */}
         <div className="flex items-center gap-4 px-4 py-3">
-          <button onClick={toggleLike} aria-label={liked ? "Unlike" : "Like"} aria-pressed={liked}
-            className={`flex items-center gap-1 transition-colors group ${liked ? "text-error" : "text-on-surface-variant hover:text-error"}`}>
+          <button onClick={(e) => { e.stopPropagation(); toggleLike(); }} aria-label={liked ? "Unlike" : "Like"} aria-pressed={liked}
+            className={`flex items-center gap-1 transition-colors group ${liked ? "text-success-green" : "text-on-surface-variant hover:text-success-green"}`}>
             <span className="material-symbols-outlined group-hover:scale-110 transition-transform" style={liked ? { fontVariationSettings: "'FILL' 1" } : undefined}>favorite</span>
             <span className="font-body-sm text-body-sm">{likeCount}</span>
           </button>
 
-          <button onClick={toggleSave} aria-label={saved ? "Remove bookmark" : "Save"} aria-pressed={saved}
+          <button onClick={(e) => { e.stopPropagation(); toggleSave(); }} aria-label={saved ? "Remove bookmark" : "Save"} aria-pressed={saved}
             className={`p-1.5 transition-colors ${saved ? "text-primary" : "text-on-surface-variant hover:text-primary"}`}>
             <span className="material-symbols-outlined" style={saved ? { fontVariationSettings: "'FILL' 1" } : undefined}>bookmark</span>
           </button>
@@ -347,6 +348,8 @@ export default function PostCard({ post, index = 0, initialLiked = false, initia
           </button>
         </div>
       </article>
+
+      {detailOpen && <PostDetailModal postId={post.id} onClose={() => setDetailOpen(false)} />}
     </>
   );
 }
