@@ -1,19 +1,27 @@
-name: Supabase Keepalive
+name: Supabase Keep-Alive
 
 on:
   schedule:
-    - cron: "0 6 * * *"
-  workflow_dispatch:
+    # Runs daily at 03:00 UTC, well within Supabase's 7-day inactivity window
+    - cron: "0 3 * * *"
+  workflow_dispatch: {}
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Insert heartbeat
+      - name: Ping Supabase REST API
         run: |
-          curl -sf "${{ secrets.SUPABASE_URL }}/rest/v1/heartbeats" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Content-Type: application/json" \
-            -H "Prefer: return=minimal" \
-            -d '{"source": "github-actions"}'
+          status=$(curl -s -o response.txt -w "%{http_code}" \
+            "${SUPABASE_URL}/rest/v1/forum_categories?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
+          echo "HTTP status: $status"
+          cat response.txt
+          if [ "$status" -ge 400 ]; then
+            echo "::error::Supabase ping failed with HTTP $status"
+            exit 1
+          fi
+        env:
+          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
