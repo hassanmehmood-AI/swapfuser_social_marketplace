@@ -1,3 +1,4 @@
+import { SUPPORT_EMAIL } from "@/lib/site";
 import Link from "next/link";
 
 const SECTIONS = [
@@ -31,7 +32,7 @@ const SECTIONS = [
   },
   {
     title: "8. Your Rights",
-    body: `Depending on your location, you may have the right to access, correct, or delete your personal information, object to or restrict certain processing, and request a copy of your data in a portable format.\n\nTo exercise these rights, contact us at privacy@swapfuser.com. We will respond to your request within 30 days.`,
+    body: `Depending on your location, you may have the right to access, correct, or delete your personal information, object to or restrict certain processing, and request a copy of your data in a portable format.\n\nTo exercise these rights, contact us at ${SUPPORT_EMAIL}. We will respond to your request within 30 days.`,
   },
   {
     title: "9. Changes to This Policy",
@@ -39,7 +40,7 @@ const SECTIONS = [
   },
   {
     title: "10. Contact Us",
-    body: `If you have any questions about this Privacy Policy, please contact us at:\n\nSwapFuser Privacy Team\nprivacy@swapfuser.com`,
+    body: `If you have any questions about this Privacy Policy, please contact us at:\n\nSwapFuser Privacy Team\n${SUPPORT_EMAIL}`,
   },
 ];
 
