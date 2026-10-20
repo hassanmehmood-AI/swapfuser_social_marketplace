@@ -1,4 +1,3 @@
-import { SUPPORT_EMAIL } from "@/lib/site";
 import Link from "next/link";
 
 const SECTIONS = [
@@ -44,7 +43,7 @@ const SECTIONS = [
   },
   {
     title: "11. Contact",
-    body: `For questions about these Terms of Service, please contact us at:\n\n${SUPPORT_EMAIL}`,
+    body: `For questions about these Terms of Service, please contact us at:\n\nlegal@swapfuser.com`,
   },
 ];
 

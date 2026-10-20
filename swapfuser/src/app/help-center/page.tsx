@@ -1,4 +1,3 @@
-import { SUPPORT_EMAIL } from "@/lib/site";
 import Link from "next/link";
 
 const FAQS = [
@@ -116,7 +115,7 @@ export default function HelpCenterPage() {
         <div className="mt-16 bg-primary/5 border border-primary/20 rounded-2xl p-8 text-center">
           <h2 className="font-bold text-xl text-on-surface mb-2">Still need help?</h2>
           <p className="text-on-surface-variant mb-6 font-body-sm text-body-sm">Our support team is here Monday – Friday, 9am – 6pm.</p>
-          <a href={`mailto:${SUPPORT_EMAIL}`} className="inline-block bg-primary text-on-primary font-username-sm text-username-sm px-8 py-3 rounded-full hover:opacity-90 transition-opacity shadow-sm">
+          <a href="mailto:support@swapfuser.com" className="inline-block bg-primary text-on-primary font-username-sm text-username-sm px-8 py-3 rounded-full hover:opacity-90 transition-opacity shadow-sm">
             Contact Support
           </a>
         </div>

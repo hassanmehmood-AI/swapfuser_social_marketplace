@@ -1,4 +1,3 @@
-import { SUPPORT_EMAIL } from "@/lib/site";
 import Link from "next/link";
 
 const OPENINGS = [
@@ -103,8 +102,8 @@ export default function CareersPage() {
         <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 text-center">
           <h2 className="font-bold text-xl text-on-surface mb-2">Don't see the right role?</h2>
           <p className="text-on-surface-variant mb-4 font-body-sm text-body-sm">We're always looking for exceptional people. Send us your story.</p>
-          <a href={`mailto:${SUPPORT_EMAIL}`} className="inline-block border border-primary text-primary font-username-sm text-username-sm px-6 py-2.5 rounded-full hover:bg-primary/5 transition-colors">
-            {SUPPORT_EMAIL}
+          <a href="mailto:careers@swapfuser.com" className="inline-block border border-primary text-primary font-username-sm text-username-sm px-6 py-2.5 rounded-full hover:bg-primary/5 transition-colors">
+            careers@swapfuser.com
           </a>
         </div>
       </main>

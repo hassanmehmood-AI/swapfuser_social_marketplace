@@ -1,4 +1,3 @@
-import { SUPPORT_EMAIL } from "@/lib/site";
 import Link from "next/link";
 
 const GUIDELINES = [
@@ -73,7 +72,7 @@ export default function CommunityPage() {
             Violations of these guidelines may result in content removal, temporary suspension, or a permanent ban — depending on severity. We review every report and aim to respond within 24 hours.
           </p>
           <p className="text-on-surface-variant leading-relaxed">
-            If you believe your account was actioned in error, you can appeal by contacting our Trust & Safety team at <a href={`mailto:${SUPPORT_EMAIL}`} className="text-primary hover:underline">{SUPPORT_EMAIL}</a>.
+            If you believe your account was actioned in error, you can appeal by contacting our Trust & Safety team at <a href="mailto:safety@swapfuser.com" className="text-primary hover:underline">safety@swapfuser.com</a>.
           </p>
         </section>
 
