@@ -35,6 +35,12 @@ export default function ContactPage() {
       return;
     }
 
+    // Notify the support inbox; the message is already saved, so a failure here is ignored.
+    fetch("/api/contact-notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    }).catch(() => {});
     setSuccess(true);
     setLoading(false);
   }

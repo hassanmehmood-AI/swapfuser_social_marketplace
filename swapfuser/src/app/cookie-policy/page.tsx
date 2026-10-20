@@ -1,3 +1,4 @@
+import { SUPPORT_EMAIL } from "@/lib/site";
 import Link from "next/link";
 
 const SECTIONS = [
@@ -27,7 +28,7 @@ const SECTIONS = [
   },
   {
     title: "7. Contact Us",
-    body: `If you have questions about this Cookie Policy, please contact us at:\n\nprivacy@swapfuser.com`,
+    body: `If you have questions about this Cookie Policy, please contact us at:\n\n${SUPPORT_EMAIL}`,
   },
 ];
 
